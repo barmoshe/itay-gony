@@ -1,0 +1,353 @@
+/* CSS Variables */
+
+/* Import Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Amatic+SC&family=Alef&family=Inter:wght@400;600&display=swap");
+
+:root {
+  --primary-color: #ffd700;
+  --secondary-color: #000000;
+  --background-color: #f4f4f4;
+  --text-color: #333333;
+  --accent-color: #e5c100;
+  --font-primary: "Alef", sans-serif;
+  --font-secondary: "Amatic SC", cursive;
+  --font-tertiary: "Inter", sans-serif;
+}
+
+/* Reset */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Global Styles */
+body {
+  background-color: var(--background-color);
+  font-family: var(--font-primary);
+  color: var(--text-color);
+  overflow-x: hidden;
+  direction: rtl;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--accent-color);
+}
+
+/* Cover Section */
+#cover {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("/images/cover-image.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+#cover::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+}
+
+#cover h1 {
+  position: relative;
+  font-family: var(--font-secondary);
+  color: var(--primary-color);
+  font-size: 4em;
+  text-align: center;
+  text-shadow: 2px 2px var(--secondary-color);
+  z-index: 1;
+  animation: fadeInDown 1s ease-out;
+}
+
+/* Scroll Indicator */
+#scroll-indicator {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2.5em;
+  color: var(--primary-color);
+  animation: bounce 2s infinite;
+  z-index: 1;
+  cursor: pointer;
+  /* Enhanced for accessibility */
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+
+#scroll-indicator:hover,
+#scroll-indicator:focus {
+  background: rgba(255, 255, 255, 0.6);
+  outline: none;
+}
+
+/* Keyframes */
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  40% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+
+  60% {
+    transform: translateX(-50%) translateY(-5px);
+  }
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Gallery Section */
+#gallery {
+  margin: 50px auto;
+  padding: 20px;
+  display: grid; /* Ensure grid layout is used */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  justify-items: center;
+}
+
+.gallery-item {
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 4px 4px var(--secondary-color);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 80%;
+}
+
+.gallery-item:hover {
+  transform: scale(1.05);
+  box-shadow: 8px 8px var(--secondary-color);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+}
+
+/* Hearts Container */
+.hearts-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  z-index: 0; /* Ensure hearts are behind other cover content */
+}
+
+/* Heart Emoji */
+.heart {
+  position: absolute;
+  font-size: 1.5rem; /* Base size, will be adjusted via JavaScript */
+  animation: floatUp linear infinite;
+  pointer-events: none; /* Allow clicks to pass through */
+}
+
+/* Ensure Cover Content is Above Hearts */
+#cover h1,
+#scroll-indicator {
+  position: absolute;
+  z-index: 1;
+}
+
+.gallery-heading {
+  font-family: var(--font-secondary);
+  font-size: 2em;
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 50px;
+}
+
+.play-pause-button {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+  z-index: 100; /* Ensure the button is above all content */
+}
+
+.play-pause-button:hover {
+  background-color: var(--accent-color);
+}
+
+/* New Section for Couple's Messages */
+#couple-section {
+  background-color: var(--background-color);
+  padding: 50px 20px;
+  text-align: center;
+  font-family: var(--font-primary);
+  color: var(--text-color);
+  line-height: 1.8;
+}
+
+#couple-section h2 {
+  font-family: var(--font-secondary);
+  font-size: 2.5em;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+#couple-section p {
+  font-size: 1.2em;
+  margin-bottom: 40px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.couple-quote {
+  font-style: italic;
+  font-family: var(--font-tertiary);
+  color: var(--secondary-color);
+}
+
+#couple-section button {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border-radius: 50px;
+  transition: background-color 0.3s ease;
+}
+
+#couple-section button:hover {
+  background-color: var(--accent-color);
+}
+#cover img {
+  position: relative;
+  max-height: 35vw;
+  max-width: 100%;
+  margin-top: 20px;
+  border-radius: 50%;
+  animation: fadeIn 1s ease-out;
+}
+@media(max-width: 768px) {
+
+  #gallery {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* Adjust to a single column on smaller screens */
+    justify-items: center; /* Center the gallery items */
+    gap: 10px; /* Reduce the gap between items for smaller screens */
+  
+  }
+
+  #cover h1 {
+    font-size: 3em;
+  }
+
+  #scroll-indicator {
+    font-size: 2em;
+  }
+
+  .gallery-item {
+    width: 65%; /* Ensure gallery items take most of the screen but leave some padding */
+    min-height: 300px;
+    img{
+      height: 100%;
+    }
+  }
+
+  .gallery-heading {
+    font-size: 1.5em;
+  }
+
+  #cover img {
+    max-height: 70%;
+  }
+}
