@@ -43,7 +43,7 @@ const Cover = ({ onScrollDown }) => {
         <section id="cover">
             <h1>איתי וגוני האהובים 💛🖤</h1>
             {/* Correctly use img tag with valid path */}
-            <img src="src/assets/imgs/cover.PNG" alt="תמונת שער" />
+            <img src="./imgs/cover.PNG" alt="תמונת שער" />
             <div
                 id="scroll-indicator"
                 tabIndex={0}

@@ -6,7 +6,7 @@
 :root {
   --primary-color: #ffd700;
   --secondary-color: #000000;
-  --background-color: #f4f4f4;
+  --background-color: #efdeb1;
   --text-color: #333333;
   --accent-color: #e5c100;
   --font-primary: "Alef", sans-serif;
@@ -91,7 +91,6 @@ a:hover {
   animation: bounce 2s infinite;
   z-index: 1;
   cursor: pointer;
-  /* Enhanced for accessibility */
   width: 50px;
   height: 50px;
   display: flex;
@@ -110,74 +109,36 @@ a:hover {
 
 /* Keyframes */
 @keyframes bounce {
-  0%,
-  20%,
-  50%,
-  80%,
-  100% {
-    transform: translateX(-50%) translateY(0);
-  }
-
-  40% {
-    transform: translateX(-50%) translateY(-10px);
-  }
-
-  60% {
-    transform: translateX(-50%) translateY(-5px);
-  }
+  0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+  40% { transform: translateX(-50%) translateY(-10px); }
+  60% { transform: translateX(-50%) translateY(-5px); }
 }
 
 @keyframes floatUp {
-  0% {
-    transform: translateY(0) rotate(0deg);
-    opacity: 1;
-  }
-
-  100% {
-    transform: translateY(-100vh) rotate(720deg);
-    opacity: 0;
-  }
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
 }
 
 @keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-50px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-50px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* Gallery Section */
 #gallery {
   margin: 50px auto;
   padding: 20px;
-  display: grid; /* Ensure grid layout is used */
+  display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
   justify-items: center;
@@ -218,15 +179,15 @@ a:hover {
   overflow: hidden;
   top: 0;
   left: 0;
-  z-index: 0; /* Ensure hearts are behind other cover content */
+  z-index: 0;
 }
 
 /* Heart Emoji */
 .heart {
   position: absolute;
-  font-size: 1.5rem; /* Base size, will be adjusted via JavaScript */
+  font-size: 1.5rem;
   animation: floatUp linear infinite;
-  pointer-events: none; /* Allow clicks to pass through */
+  pointer-events: none;
 }
 
 /* Ensure Cover Content is Above Hearts */
@@ -257,57 +218,13 @@ a:hover {
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease;
-  z-index: 100; /* Ensure the button is above all content */
+  z-index: 100;
 }
 
 .play-pause-button:hover {
   background-color: var(--accent-color);
 }
 
-/* New Section for Couple's Messages */
-#couple-section {
-  background-color: var(--background-color);
-  padding: 50px 20px;
-  text-align: center;
-  font-family: var(--font-primary);
-  color: var(--text-color);
-  line-height: 1.8;
-}
-
-#couple-section h2 {
-  font-family: var(--font-secondary);
-  font-size: 2.5em;
-  color: var(--primary-color);
-  margin-bottom: 20px;
-}
-
-#couple-section p {
-  font-size: 1.2em;
-  margin-bottom: 40px;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.couple-quote {
-  font-style: italic;
-  font-family: var(--font-tertiary);
-  color: var(--secondary-color);
-}
-
-#couple-section button {
-  background-color: var(--primary-color);
-  color: var(--secondary-color);
-  border: none;
-  padding: 15px 30px;
-  font-size: 1.2rem;
-  cursor: pointer;
-  border-radius: 50px;
-  transition: background-color 0.3s ease;
-}
-
-#couple-section button:hover {
-  background-color: var(--accent-color);
-}
 #cover img {
   position: relative;
   max-height: 35vw;
@@ -316,15 +233,131 @@ a:hover {
   border-radius: 50%;
   animation: fadeIn 1s ease-out;
 }
-@media(max-width: 768px) {
 
+/* Friends Wishes Section */
+.friends-wishes-container {
+  padding: 50px 20px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.friend-message {
+  display: flex;
+  margin-bottom: 40px;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.friend-message.even {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.friend-avatar {
+  flex: 0 0 100px;
+  margin: 0 20px;
+}
+
+.friend-avatar img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--primary-color);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.message-bubble {
+  flex: 1;
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.friend-message.even .message-bubble::after,
+.friend-message.odd .message-bubble::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  border: 15px solid transparent;
+}
+
+.friend-message.odd .message-bubble::before {
+  right: 100%;
+  border-right-color: #ffffff;
+}
+
+.friend-message.even .message-bubble::after {
+  left: 100%;
+  border-left-color: #ffffff;
+}
+
+.friend-name {
+  font-family: var(--font-secondary);
+  font-size: 1.8em;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+.message-content {
+  font-size: 1.1em;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.friend-quote {
+  font-style: italic;
+  color: var(--secondary-color);
+  font-size: 1em;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid var(--accent-color);
+}
+
+audio {
+  width: 100%;
+  margin-top: 15px;
+}
+
+/* Video Note Player Styles */
+.video-note-container {
+  width: 120px;
+  height: 120px;
+  margin: 20px auto;
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+  font-size: 2em;
+  z-index: 2;
+}
+
+.progress-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
   #gallery {
     padding: 10px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr; /* Adjust to a single column on smaller screens */
-    justify-items: center; /* Center the gallery items */
-    gap: 10px; /* Reduce the gap between items for smaller screens */
-  
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+    gap: 10px;
   }
 
   #cover h1 {
@@ -336,18 +369,101 @@ a:hover {
   }
 
   .gallery-item {
-    width: 65%; /* Ensure gallery items take most of the screen but leave some padding */
-    min-height: 300px;
-    img{
-      height: 100%;
-    }
+    width: 85%;
+    min-height: 600px;
+  }
+
+  .gallery-item img {
+    height: 100%;
   }
 
   .gallery-heading {
     font-size: 1.5em;
   }
 
+  #cover {
+    height: 90vh;
+  }
+
   #cover img {
     max-height: 70%;
+  }
+
+  .friend-message,
+  .friend-message.even {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .friend-avatar {
+    margin-bottom: 20px;
+  }
+
+  .message-bubble::before,
+  .message-bubble::after {
+    display: none;
+  }
+}
+
+/* Hover and Selected States */
+.gallery-item.selected {
+  transform: scale(1.12);
+  box-shadow: 8px 8px var(--secondary-color);
+}
+
+.gallery-item.selected img {
+  transform: scale(1.05);
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .friends-wishes-container {
+    padding: 30px 10px;
+  }
+
+  .friend-message,
+  .friend-message.even {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .friend-avatar {
+    margin-bottom: 15px;
+  }
+
+  .friend-avatar img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .message-bubble {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .message-bubble::before,
+  .message-bubble::after {
+    display: none;
+  }
+
+  .friend-name {
+    font-size: 1.5em;
+  }
+
+  .message-content {
+    font-size: 1em;
+  }
+
+  .friend-quote {
+    font-size: 0.9em;
+  }
+
+  .video-note-container {
+    width: 100px;
+    height: 100px;
   }
 }

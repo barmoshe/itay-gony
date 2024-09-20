@@ -1,14 +1,16 @@
 import React from 'react';
 import Cover from './components/Cover';
 import Gallery from './components/Gallery';
-import CoupleSection from './components/CoupleSection'; // Import the new section
+import FriendsWishes from './components/FriendsWishes';
 import './App.css';
 
 function App() {
   const handleScrollDown = () => {
     const gallerySection = document.getElementById('gallery');
     if (gallerySection) {
-      gallerySection.scrollIntoView({ behavior: 'smooth' });
+      const yOffset = -100;
+      const y = gallerySection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
     }
   };
 
@@ -16,7 +18,9 @@ function App() {
     <div className="App">
       <Cover onScrollDown={handleScrollDown} />
       <Gallery />
-      <CoupleSection /> {/* Add the new section here */}
+      <br/><br/>
+      <br/><hr /><br/><br/>
+      <FriendsWishes />
     </div>
   );
 }
