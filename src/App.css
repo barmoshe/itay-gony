@@ -1,7 +1,7 @@
 /* CSS Variables */
 
 /* Import Google Fonts */
-@import url("https://fonts.googleapis.com/css2?family=Amatic+SC&family=Alef&family=Inter:wght@400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Amatic+SC&family=Alef&family=Inter:wght@400;600&family=Roboto&family=Lobster&display=swap");
 
 :root {
   --primary-color: #ffd700;
@@ -12,6 +12,10 @@
   --font-primary: "Alef", sans-serif;
   --font-secondary: "Amatic SC", cursive;
   --font-tertiary: "Inter", sans-serif;
+  --font-quaternary: "Roboto", sans-serif;
+  --font-quinary: "Lobster", cursive;
+  --couple-quote-shadow: #ffd700;
+  /* Additional CSS variables can be added here as needed */
 }
 
 /* Reset */
@@ -53,6 +57,7 @@ a:hover {
   background-size: cover;
   background-position: center;
   display: flex;
+  flex-direction: column; /* Stack elements vertically */
   justify-content: center;
   align-items: center;
   overflow: hidden;
@@ -65,12 +70,12 @@ a:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.2);
   z-index: 0;
 }
 
 #cover h1 {
-  position: relative;
+  /* Removed absolute positioning */
   font-family: var(--font-secondary);
   color: var(--primary-color);
   font-size: 4em;
@@ -78,6 +83,17 @@ a:hover {
   text-shadow: 2px 2px var(--secondary-color);
   z-index: 1;
   animation: fadeInDown 1s ease-out;
+}
+
+.congrats-message {
+  /* Styled to appear below the header */
+  font-family: var(--font-tertiary);
+  color: var(--accent-color);
+  font-size: 1.5rem;
+  text-align: center;
+  margin-top: 10px; /* Spacing below the header */
+  z-index: 1;
+  animation: fadeInUp 1s ease-out;
 }
 
 /* Scroll Indicator */
@@ -109,29 +125,61 @@ a:hover {
 
 /* Keyframes */
 @keyframes bounce {
-  0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-  40% { transform: translateX(-50%) translateY(-10px); }
-  60% { transform: translateX(-50%) translateY(-5px); }
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  40% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+  60% {
+    transform: translateX(-50%) translateY(-5px);
+  }
 }
 
 @keyframes floatUp {
-  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(720deg);
+    opacity: 0;
+  }
 }
 
 @keyframes fadeInDown {
-  from { opacity: 0; transform: translateY(-50px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* Gallery Section */
@@ -193,10 +241,10 @@ a:hover {
 /* Ensure Cover Content is Above Hearts */
 #cover h1,
 #scroll-indicator {
-  position: absolute;
   z-index: 1;
 }
 
+/* Gallery Heading */
 .gallery-heading {
   font-family: var(--font-secondary);
   font-size: 2em;
@@ -205,6 +253,7 @@ a:hover {
   margin-top: 50px;
 }
 
+/* Play-Pause Button */
 .play-pause-button {
   position: fixed;
   bottom: 20px;
@@ -227,7 +276,7 @@ a:hover {
 
 #cover img {
   position: relative;
-  max-height: 35vw;
+  max-height: 42vw;
   max-width: 100%;
   margin-top: 20px;
   border-radius: 50%;
@@ -278,7 +327,7 @@ a:hover {
 
 .friend-message.even .message-bubble::after,
 .friend-message.odd .message-bubble::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 20px;
   border: 15px solid transparent;
@@ -299,6 +348,7 @@ a:hover {
   font-size: 1.8em;
   color: var(--primary-color);
   margin-bottom: 10px;
+  cursor: pointer;
 }
 
 .message-content {
@@ -404,6 +454,12 @@ audio {
   .message-bubble::after {
     display: none;
   }
+
+  /* Adjustments for Congrats Message on medium screens */
+  .congrats-message {
+    font-size: 1.2rem;
+    margin-top: 8px;
+  }
 }
 
 /* Hover and Selected States */
@@ -416,8 +472,7 @@ audio {
   transform: scale(1.05);
 }
 
-
-/* Responsive Design */
+/* Responsive Design for Friends Wishes */
 @media (max-width: 768px) {
   .friends-wishes-container {
     padding: 30px 10px;
@@ -466,4 +521,197 @@ audio {
     width: 100px;
     height: 100px;
   }
+
+  /* Adjustments for Congrats Message on medium screens */
+  .congrats-message {
+    font-size: 1.2rem;
+    margin-top: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .all-friends {
+    padding: 20px 10px;
+  }
+
+  .all-friends h4 {
+    font-size: 1.5em;
+  }
+
+  .all-friends h4::after {
+    width: 30%;
+  }
+
+  .all-friends-message {
+    font-size: 0.95em;
+    margin-bottom: 15px;
+  }
+
+  .all-friends img {
+    width: 320px;
+    border-radius: 8px;
+  }
+
+  /* Adjustments for Congrats Message on small screens */
+  .congrats-message {
+    font-size: 1rem;
+    margin-top: 6px;
+  }
+}
+
+/* All Friends Section */
+.all-friends {
+  position: relative;
+  padding: 40px 20px;
+  margin: 50px auto;
+  max-width: 800px;
+  background-color: #fff8e1; /* Light background to contrast with container */
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  animation: fadeInUp 1s ease-out;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.all-friends:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.all-friends h4 {
+  font-family: var(--font-secondary);
+  font-size: 2em;
+  color: var(--secondary-color);
+  margin-bottom: 20px;
+  position: relative;
+  display: inline-block;
+  animation: fadeInDown 1s ease-out;
+}
+
+.all-friends h4::after {
+  content: '';
+  display: block;
+  width: 50%;
+  height: 3px;
+  background-color: var(--accent-color);
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+.all-friends-message {
+  font-family: var(--font-tertiary);
+  font-size: 1.1em;
+  color: var(--text-color);
+  margin-bottom: 25px;
+  line-height: 1.6;
+  animation: fadeIn 1s ease-out;
+}
+
+.all-friends img {
+  width: 350px;
+  max-width: 100%;
+  height: auto;
+  border-radius: 15px;
+  object-fit: cover;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  cursor: pointer;
+  animation: fadeIn 1.5s ease-out;
+}
+
+.all-friends img:hover {
+  transform: scale(1.05) rotate(2deg);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Interactive Animations */
+.all-friends img {
+  /* Adding a subtle floating animation */
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translatey(0px);
+  }
+  50% {
+    transform: translatey(-10px);
+  }
+  100% {
+    transform: translatey(0px);
+  }
+}
+
+/* Responsive Design for All Friends Section */
+@media (max-width: 768px) {
+  .all-friends {
+    padding: 30px 15px;
+    margin: 30px auto;
+  }
+
+  .all-friends h4 {
+    font-size: 1.8em;
+  }
+
+  .all-friends h4::after {
+    width: 40%;
+  }
+
+  .all-friends-message {
+    font-size: 1em;
+    margin-bottom: 20px;
+  }
+
+  .all-friends img {
+    width: 350px;
+    border-radius: 10px;
+  }
+
+  /* Adjustments for Congrats Message on medium screens */
+  .congrats-message {
+    font-size: 1.2rem;
+    margin-top: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .all-friends {
+    padding: 20px 10px;
+  }
+
+  .all-friends h4 {
+    font-size: 1.5em;
+  }
+
+  .all-friends h4::after {
+    width: 30%;
+  }
+
+  .all-friends-message {
+    font-size: 0.95em;
+    margin-bottom: 15px;
+  }
+
+  .all-friends img {
+    width: 320px;
+    border-radius: 8px;
+  }
+
+  /* Adjustments for Congrats Message on small screens */
+  .congrats-message {
+    font-size: 1rem;
+    margin-top: 6px;
+  }
+}
+
+/* Hover and Selected States */
+.gallery-item.selected {
+  transform: scale(1.12);
+  box-shadow: 8px 8px var(--secondary-color);
+}
+
+.gallery-item.selected img {
+  transform: scale(1.05);
+}
+*{
+  text-shadow: #000000 0.5px 0.5px 0.5px;
 }

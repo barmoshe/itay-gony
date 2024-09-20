@@ -25,17 +25,19 @@ const Gallery = () => {
       theme: "pinkPurple",
       audio: "./audio/the-spins.mp3",
     },
+
   ];
 
   function changeWebpageTheme(theme) {
-    let primaryColor, secondaryColor, backgroundColor, textColor, fontFamily, boxShadow, coupleQuoteShadow;
-  
+    let primaryColor, secondaryColor, backgroundColor, textColor, accentColor, fontFamily, boxShadow, coupleQuoteShadow;
+
     switch (theme) {
       case "green":
         primaryColor = "#7CD441";
         secondaryColor = "#5A9F30";
         backgroundColor = "#b1efc1";
         textColor = "#333333";
+        accentColor = "#4CAF50";
         fontFamily = "'Amatic SC', cursive";
         boxShadow = "0 4px 20px rgba(124, 212, 65, 0.5)";
         coupleQuoteShadow = "#7CD441"; // Green text shadow for the quote
@@ -45,6 +47,7 @@ const Gallery = () => {
         secondaryColor = "#695800";
         backgroundColor = "#efe7b1";
         textColor = "#000000";
+        accentColor = "#FFA500";
         fontFamily = "'Inter', sans-serif";
         boxShadow = "0 4px 20px rgba(255, 215, 0, 0.5)";
         coupleQuoteShadow = "#FFD700"; // Yellow text shadow for the quote
@@ -54,29 +57,51 @@ const Gallery = () => {
         secondaryColor = "#6A1B9A";
         backgroundColor = "#efb1ea";
         textColor = "#FFFFFF";
+        accentColor = "#E91E63";
         fontFamily = "'Alef', sans-serif";
         boxShadow = "0 4px 20px rgba(216, 27, 96, 0.5)";
         coupleQuoteShadow = "#D81B60"; // Pink text shadow for the quote
+        break;
+      case "ocean":
+        primaryColor = "#1E90FF";
+        secondaryColor = "#104E8B";
+        backgroundColor = "#ADD8E6";
+        textColor = "#FFFFFF";
+        accentColor = "#00BFFF";
+        fontFamily = "'Roboto', sans-serif";
+        boxShadow = "0 4px 20px rgba(30, 144, 255, 0.5)";
+        coupleQuoteShadow = "#1E90FF"; // Blue text shadow for the quote
+        break;
+      case "sunset":
+        primaryColor = "#FF4500";
+        secondaryColor = "#FF8C00";
+        backgroundColor = "#FFDAB9";
+        textColor = "#333333";
+        accentColor = "#FF6347";
+        fontFamily = "'Lobster', cursive";
+        boxShadow = "0 4px 20px rgba(255, 69, 0, 0.5)";
+        coupleQuoteShadow = "#FF4500"; // Orange text shadow for the quote
         break;
       default:
         primaryColor = "#FFD700";
         secondaryColor = "#000000";
         backgroundColor = "#efb1ea";
         textColor = "#333333";
+        accentColor = "#e5c100";
         fontFamily = "'Alef', sans-serif";
         boxShadow = "none";
         coupleQuoteShadow = "#FFD700"; // Default yellow text shadow for the quote
     }
-  
+
     document.documentElement.style.setProperty("--primary-color", primaryColor);
     document.documentElement.style.setProperty("--secondary-color", secondaryColor);
     document.documentElement.style.setProperty("--background-color", backgroundColor);
     document.documentElement.style.setProperty("--text-color", textColor);
+    document.documentElement.style.setProperty("--accent-color", accentColor);
     document.documentElement.style.setProperty("--font-family", fontFamily);
     document.documentElement.style.setProperty("--box-shadow", boxShadow);
     document.documentElement.style.setProperty("--couple-quote-shadow", coupleQuoteShadow); // Set the text shadow color for the couple-quote
   }
-  
 
   // Function to handle image click and play the corresponding audio
   const handleImageClick = (image, index) => {

@@ -42,7 +42,7 @@ const Cover = ({ onScrollDown }) => {
     return (
         <section id="cover">
             <h1>איתי וגוני האהובים 💛🖤</h1>
-            {/* Correctly use img tag with valid path */}
+            <p className="congrats-message">מזל טוב לאירוסין 🎉</p> {/* Positioned below the header */}
             <img src="./imgs/cover.PNG" alt="תמונת שער" />
             <div
                 id="scroll-indicator"
