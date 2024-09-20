@@ -58,9 +58,7 @@ const VideoNotePlayer = ({ videoSrc, thumbnail }) => {
         playIcon={null}
         controls={false}
       />
-      <div className="play-icon">
-        {isPlaying ? <FaPause /> : <FaPlay />}
-      </div>
+     
       <svg className="progress-ring" width="100%" height="100%" viewBox="0 0 60 60">
         <circle
           className="progress-ring-circle"

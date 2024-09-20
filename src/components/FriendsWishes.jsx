@@ -8,18 +8,18 @@ const FriendsWishes = () => {
     {
       id: 1,
       name: 'אופיר',
-      photo: '/imgs/opir.jpg',
-      message: 'מאחל לכם חיים מלאים באהבה, אושר ובריאות. מי ייתן וכל יום יהיה לכם מתנה.',
-      quote: '"האושר שבאהבה אינו נמדד בכמות החיוכים אלא ברגעי השקט והכנות שאנו חולקים." - לא ידוע',
+      photo: './imgs/OFIR.jpg',
+      message: 'דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא  דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא',
+      quote: '״טקסט לדוגמא טקסט לדוגמא טקסט לדוגמא טקסט לדוגמא טקסט לדוגמא״',
       audio: '/audio/opir.mp3',
       // No video for אופיר
     },
     {
       id: 2,
       name: 'אפיק',
-      photo: '/imgs/apik.jpg',
+      photo: './imgs/AFIK.jpg',
       // No text message for אפיק
-      quote: '"האושר שבאהבה אינו נמדד בכמות החיוכים אלא ברגעי השקט והכנות שאנו חולקים." - לא ידוע',
+      quote: '״טקסט לדוגמא טקסט לדוגמא טקסט לדוגמא טקסט לדוגמא טקסט לדוגמא״',
       video: './video/video1.mp4',
       // No text for אפיק
     },
@@ -27,36 +27,37 @@ const FriendsWishes = () => {
       id: 3,
       name: 'שקד',
       photo: './imgs/SHAKED.jpg',
-      message: 'שתזכו לבנות בית מלא באהבה והבנה. כל טוב ואושר לכם בדרך החדשה.',
-      quote: '"האושר שבאהבה אינו נמדד בכמות החיוכים אלא ברגעי השקט והכנות שאנו חולקים." - לא ידוע',
+      message: 'דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא  דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא',
+      quote: '״טקסט לדוגמא טקסט לדוגמא טקסט לדוגמא טקסט לדוגמא טקסט לדוגמא״',
       // No audio or video for שקד
-    },
-    {
+    },    {
       id: 4,
-      name: 'בר',
-      photo: './imgs/BAR.png',
-      // No text message for בר
-      quote: '"האושר שבאהבה אינו נמדד בכמות החיוכים אלא ברגעי השקט והכנות שאנו חולקים." - לא ידוע',
-      audio: '/audio/bar.mp3',
-      // No video for בר
+      name: 'שלומי',
+      photo: './imgs/SHLOMI.jpg',
+      // No text message for שלומי
+      quote: '״טקסט לדוגמא טקסט לדוגמא טקסט לדוגמא טקסט לדוגמא טקסט לדוגמא״',
+      video: '/videos/shalomi.mp4',
+      // No audio for שלומי
     },
+
     {
       id: 5,
       name: 'פסו',
       photo: './imgs/PESSO.jpg',
-      message: 'מאחל לכם מסע משותף מלא בהצלחות וברגעים שמחים.',
-      quote: '"האושר שבאהבה אינו נמדד בכמות החיוכים אלא ברגעי השקט והכנות שאנו חולקים." - לא ידוע',
+      message: 'דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא  דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא',
+      quote: '״טקסט לדוגמא טקסט לדוגמא טקסט לדוגמא טקסט לדוגמא טקסט לדוגמא״',
       // No audio or video for פסו
     },
     {
       id: 6,
-      name: 'שלומי',
-      photo: './imgs/shalomi.jpg',
-      // No text message for שלומי
-      quote: '"האושר שבאהבה אינו נמדד בכמות החיוכים אלא ברגעי השקט והכנות שאנו חולקים." - לא ידוע',
-      video: '/videos/shalomi.mp4',
-      // No audio for שלומי
+      name: 'בר',
+      photo: './imgs/BAR.png',
+      // No text message for בר
+      quote: '״טקסט לדוגמא טקסט לדוגמא טקסט לדוגמא טקסט לדוגמא טקסט לדוגמא״',
+      audio: '/audio/bar.mp3',
+      // No video for בר
     },
+
   ];
   
   return (
@@ -79,9 +80,7 @@ const FriendMessage = ({ friend, index }) => {
 
   return (
     <div className={`friend-message ${isEven ? 'even' : 'odd'}`}>
-      <div className="friend-avatar">
-        <img src={friend.photo} alt={friend.name} onClick={toggleExpand} />
-      </div>
+     
       <div className={`message-bubble ${isExpanded ? 'expanded' : ''}`}>
         <div className="friend-name" onClick={toggleExpand}>{friend.name}</div>
         {(isExpanded || window.innerWidth > 768) && (
@@ -97,6 +96,9 @@ const FriendMessage = ({ friend, index }) => {
             <p className="friend-quote">{friend.quote}</p>
           </>
         )}
+      </div>
+      <div className="friend-avatar">
+        <img src={friend.photo} alt={friend.name} onClick={toggleExpand} />
       </div>
     </div>
   );
