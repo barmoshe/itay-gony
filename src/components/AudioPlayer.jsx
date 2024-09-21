@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 
 // Utility hook to get window dimensions
 const useWindowSize = () => {
@@ -19,10 +19,10 @@ const useWindowSize = () => {
       }, 150); // Debounce delay
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     return () => {
       clearTimeout(timeoutId);
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -68,79 +68,84 @@ const getStyles = (isHovered, windowWidth, theme) => {
   // Fallback to 'green' theme if the provided theme is undefined or invalid
   const themeColors = themeStyles[theme] || themeStyles.blackYellow;
 
-  const buttonSize = windowWidth < 600 ? '50px' : '70px';
+  const buttonSize = windowWidth < 600 ? "50px" : "70px";
   const iconSize = windowWidth < 600 ? 10 : 12;
-  const pauseBarWidth = windowWidth < 600 ? '4px' : '5px';
-  const pauseBarHeight = windowWidth < 600 ? '20px' : '24px';
+  const pauseBarWidth = windowWidth < 600 ? "4px" : "5px";
+  const pauseBarHeight = windowWidth < 600 ? "20px" : "24px";
 
   return {
     container: {
-      position: 'relative',
-      width: '100%',
-      height: windowWidth < 600 ? '150px' : '200px',
+      position: "relative",
+      width: "100%",
+      height: windowWidth < 600 ? "150px" : "200px",
       background: themeColors.backgroundColor,
-      borderRadius: '12px',
-      overflow: 'hidden',
-      cursor: 'pointer',
+      borderRadius: "12px",
+      overflow: "hidden",
+      cursor: "pointer",
       boxShadow: themeColors.boxShadow,
-      transition: 'background 0.3s ease',
+      transition: "background 0.3s ease",
     },
     canvas: {
-      width: '100%',
-      height: '100%',
-      display: 'block',
+      width: "100%",
+      height: "100%",
+      display: "block",
     },
     playPauseButton: {
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
       width: buttonSize,
       height: buttonSize,
-      borderRadius: '50%',
-      backgroundColor: 'rgba(255, 255, 255, 0.8)',
+      borderRadius: "50%",
+      backgroundColor: "rgba(255, 255, 255, 0.8)",
       color: themeColors.accentColor,
-      border: 'none',
-      outline: 'none',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      opacity: windowWidth < 600 ? 1 : (isHovered ? 1 : 0), // Always visible on mobile
-      transition: 'opacity 0.3s ease, transform 0.3s ease',
-      cursor: 'pointer',
-      boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)',
+      border: "none",
+      outline: "none",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      opacity: windowWidth < 600 ? 1 : isHovered ? 1 : 0, // Always visible on mobile
+      transition: "opacity 0.3s ease, transform 0.3s ease",
+      cursor: "pointer",
+      boxShadow: "0 4px 15px rgba(0, 0, 0, 0.2)",
       zIndex: 2,
     },
     playPauseButtonVisible: {
       opacity: 1,
-      transform: 'translate(-50%, -50%) scale(1)',
+      transform: "translate(-50%, -50%) scale(1)",
     },
     playPauseButtonHidden: {
-      transform: 'translate(-50%, -50%) scale(0.95)',
+      transform: "translate(-50%, -50%) scale(0.95)",
     },
     playIcon: {
-      width: '0',
-      height: '0',
+      width: "0",
+      height: "0",
       borderTop: `${iconSize}px solid transparent`,
       borderBottom: `${iconSize}px solid transparent`,
       borderLeft: `${iconSize * 2}px solid ${themeColors.accentColor}`,
-      marginLeft: '5px',
+      marginLeft: "5px",
     },
     pauseIcon: {
-      display: 'flex',
-      justifyContent: 'space-between',
+      display: "flex",
+      justifyContent: "space-between",
       width: `${iconSize * 2 + 4}px`,
     },
     pauseBar: {
       width: `${pauseBarWidth}`,
       height: `${pauseBarHeight}`,
       backgroundColor: themeColors.accentColor,
-      borderRadius: '2px',
+      borderRadius: "2px",
     },
   };
 };
 
-const AudioPlayer = ({ src, theme = 'blackYellow', setFriendPlaying }) => {
+const AudioPlayer = ({
+  src,
+  theme = "blackYellow",
+  setFriendPlaying,
+  isFriendPlaying,
+}) => {
   const audioRef = useRef(null);
   const canvasRef = useRef(null);
   const animationRef = useRef(null);
@@ -153,9 +158,7 @@ const AudioPlayer = ({ src, theme = 'blackYellow', setFriendPlaying }) => {
   const size = useWindowSize();
   const styles = getStyles(isHovered, size.width, theme);
 
-  useEffect(() => {
-    console.log('theme changed to:', theme);
-  }, [theme]);
+
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -169,16 +172,20 @@ const AudioPlayer = ({ src, theme = 'blackYellow', setFriendPlaying }) => {
     }
 
     // Resume AudioContext on user interaction if it's suspended
-    if (audioContextRef.current.state === 'suspended') {
+    if (audioContextRef.current.state === "suspended") {
       audioContextRef.current.resume();
     }
 
     // Create MediaElementSource only once
     if (!sourceRef.current) {
       try {
-        sourceRef.current = audioContextRef.current.createMediaElementSource(audio);
+        sourceRef.current =
+          audioContextRef.current.createMediaElementSource(audio);
       } catch (e) {
-        console.error('AudioContext already connected to a MediaElementSourceNode:', e);
+        console.error(
+          "AudioContext already connected to a MediaElementSourceNode:",
+          e
+        );
       }
     }
 
@@ -197,7 +204,7 @@ const AudioPlayer = ({ src, theme = 'blackYellow', setFriendPlaying }) => {
     const dataArray = new Uint8Array(bufferLength);
 
     const canvas = canvasRef.current;
-    const canvasCtx = canvas.getContext('2d');
+    const canvasCtx = canvas.getContext("2d");
 
     const setCanvasSize = () => {
       canvas.width = canvas.offsetWidth;
@@ -210,7 +217,7 @@ const AudioPlayer = ({ src, theme = 'blackYellow', setFriendPlaying }) => {
       setCanvasSize();
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     const draw = () => {
       animationRef.current = requestAnimationFrame(draw);
@@ -251,9 +258,14 @@ const AudioPlayer = ({ src, theme = 'blackYellow', setFriendPlaying }) => {
         const progressWidth = canvas.width * progress;
         const progressBarHeight = size.width < 600 ? 15 : 20;
         //fill style with themeColors.primaryColor with opacity 0.5
-        const progressBarColor = themeColors.primaryColor + '80';
+        const progressBarColor = themeColors.primaryColor + "80";
         canvasCtx.fillStyle = progressBarColor;
-        canvasCtx.fillRect(0, canvas.height / 2 - progressBarHeight / 2, progressWidth, progressBarHeight);
+        canvasCtx.fillRect(
+          0,
+          canvas.height / 2 - progressBarHeight / 2,
+          progressWidth,
+          progressBarHeight
+        );
       } else {
         // Clear the canvas
         canvasCtx.fillStyle = themeColors.backgroundColor;
@@ -278,12 +290,12 @@ const AudioPlayer = ({ src, theme = 'blackYellow', setFriendPlaying }) => {
       if (setFriendPlaying) setFriendPlaying(false); // Notify parent
     };
 
-    audio.addEventListener('ended', handleEnded);
+    audio.addEventListener("ended", handleEnded);
 
     return () => {
       cancelAnimationFrame(animationRef.current);
-      audio.removeEventListener('ended', handleEnded);
-      window.removeEventListener('resize', handleResize);
+      audio.removeEventListener("ended", handleEnded);
+      window.removeEventListener("resize", handleResize);
     };
   }, [isPlaying, audioEnded, src, size.width, theme, setFriendPlaying]); // Added setFriendPlaying as a dependency
 
@@ -300,7 +312,7 @@ const AudioPlayer = ({ src, theme = 'blackYellow', setFriendPlaying }) => {
           if (setFriendPlaying) setFriendPlaying(true); // Notify parent
         })
         .catch((error) => {
-          console.error('Error playing audio:', error);
+          console.error("Error playing audio:", error);
         });
     } else {
       audio.pause();
@@ -329,9 +341,11 @@ const AudioPlayer = ({ src, theme = 'blackYellow', setFriendPlaying }) => {
         onClick={togglePlayPause}
         style={{
           ...styles.playPauseButton,
-          ...(isHovered ? styles.playPauseButtonVisible : styles.playPauseButtonHidden),
+          ...(isHovered
+            ? styles.playPauseButtonVisible
+            : styles.playPauseButtonHidden),
         }}
-        aria-label={isPlaying ? 'Pause audio' : 'Play audio'}
+        aria-label={isPlaying ? "Pause audio" : "Play audio"}
         tabIndex="0"
       >
         {isPlaying ? (

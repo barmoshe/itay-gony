@@ -14,7 +14,7 @@ const Gallery = ({ setTheme, friendPlaying }) => {
     if (!audio) return Promise.resolve();
 
     return new Promise((resolve) => {
-      const fadeSteps = 20;
+      const fadeSteps = 30;
       const fadeInterval = duration / fadeSteps;
       const volumeStep = (targetVolume - audio.volume) / fadeSteps;
       let currentStep = 0;
@@ -107,7 +107,7 @@ const Gallery = ({ setTheme, friendPlaying }) => {
         primaryColor = "#D81B60";
         secondaryColor = "#6A1B9A";
         backgroundColor = "#efb1ea";
-        textColor = "#FFFFFF";
+        textColor = "#9684ab";
         accentColor = "#E91E63";
         fontFamily = "'Alef', sans-serif";
         boxShadow = "0 4px 20px rgba(216, 27, 96, 0.5)";
@@ -173,6 +173,7 @@ const Gallery = ({ setTheme, friendPlaying }) => {
     newAudio.play();
     setIsPlaying(true);
     setCurrentAudio(newAudio);
+    setSelectedImage(index);
 
     newAudio.addEventListener("ended", () => {
       setIsPlaying(false);

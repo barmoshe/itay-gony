@@ -3,14 +3,14 @@ import VideoNotePlayer from "./VideoNotePlayer";
 import { useState } from "react";
 import AudioPlayer from "./AudioPlayer";
 
-const FriendsWishes = ({ theme = "blackYellow", setFriendPlaying }) => {
+const FriendsWishes = ({ theme = "blackYellow", setFriendPlaying , isFriendPlaying}) => {
   const wishes = [
     {
       id: 1,
       name: "אופיר",
       photo: "./imgs/OFIR.jpg",
       quote: "״תודה רברררר״",
-      audio: "./audio/SHISH.mp3",
+      audio: "./audio/BEITAR.mp3",
       // No video for אופיר
     },
     {
@@ -56,7 +56,7 @@ const FriendsWishes = ({ theme = "blackYellow", setFriendPlaying }) => {
       photo: "./imgs/BAR.png",
       // No text message for בר
       quote: "״אוהב מכל הלב, אוהב אותכם עד שזה כואב״",
-      audio: "./audio/SHISH.mp3",
+      audio: "./audio/the-spins.mp3",
       // No video for בר
     },
   ];
@@ -85,7 +85,7 @@ const FriendsWishes = ({ theme = "blackYellow", setFriendPlaying }) => {
   );
 };
 
-const FriendMessage = ({ friend, index, theme, setFriendPlaying }) => {
+const FriendMessage = ({ friend, index, theme, setFriendPlaying , isFriendPlaying}) => {
   const [isExpanded, setIsExpanded] = useState(true);
   const isEven = index % 2 === 0;
 
@@ -109,6 +109,7 @@ const FriendMessage = ({ friend, index, theme, setFriendPlaying }) => {
                 src={friend.audio}
                 theme={theme}
                 setFriendPlaying={setFriendPlaying} // Pass down the function
+                isFriendPlaying={isFriendPlaying}
               />
             )}
             {friend.video && (

@@ -25,7 +25,7 @@ function App() {
       <Gallery setTheme={setTheme} friendPlaying={isFriendPlaying} />
       <br/><br/>
       <br/><hr /><br/><br/>
-      <FriendsWishes theme={theme} setFriendPlaying={setIsFriendPlaying} />
+      <FriendsWishes theme={theme} setFriendPlaying={setIsFriendPlaying} isFriendPlaying={isFriendPlaying} />
    
       <br/><br/>
       <div className="temp" />
