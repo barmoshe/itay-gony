@@ -9,37 +9,45 @@ const Gallery = ({ setTheme, friendPlaying }) => {
   // Ref to store the current fade interval
   const fadeTimeoutRef = useRef(null);
 
-  // Utility function to fade volume
-  const fadeVolume = (audio, targetVolume, duration = 500) => {
-    if (!audio) return Promise.resolve();
+const fadeVolume = (audio, targetVolume, duration = 500) => {
+  if (!audio) return Promise.resolve();
 
-    return new Promise((resolve) => {
-      const fadeSteps = 30;
-      const fadeInterval = duration / fadeSteps;
-      const volumeStep = (targetVolume - audio.volume) / fadeSteps;
-      let currentStep = 0;
+  // Check screen width to determine if it's a mobile device
+  const isMobile = window.innerWidth <= 768; // Adjust this threshold as needed
 
-      const fade = setInterval(() => {
-        if (currentStep < fadeSteps) {
-          audio.volume = Math.min(Math.max(audio.volume + volumeStep, 0), 1);
-          currentStep++;
-        } else {
-          clearInterval(fade);
-          resolve();
-        }
-      }, fadeInterval);
+  // If mobile, set volume directly without fading
+  if (isMobile) {
+    audio.volume = targetVolume;
+    return Promise.resolve();
+  }
 
-      // Store the fade interval to clear if needed
-      fadeTimeoutRef.current = fade;
-    });
-  };
+  // Otherwise, perform a fade for non-mobile devices
+  return new Promise((resolve) => {
+    const fadeSteps = 30;
+    const volumeStep = (targetVolume - audio.volume) / fadeSteps;
+    let currentStep = 0;
+
+    const fade = setInterval(() => {
+      if (currentStep < fadeSteps) {
+        audio.volume = Math.min(Math.max(audio.volume + volumeStep, 0), 1);
+        currentStep++;
+      } else {
+        clearInterval(fade);
+        resolve();
+      }
+    }, duration / fadeSteps);
+
+    // Store the fade interval to clear if needed
+    fadeTimeoutRef.current = fade;
+  });
+};
 
   useEffect(() => {
     console.log("Friend playing: ", friendPlaying);
 
     // If there's an audio currently playing, adjust its volume based on friendPlaying
     if (currentAudio) {
-      const targetVolume = friendPlaying ? 0.14 : 1.0; // 14% or 100%
+      const targetVolume = friendPlaying ? 0.1 : 1.0; // 14% or 100%
       fadeVolume(currentAudio, targetVolume, 1000); // 0.5 seconds
     }
 
@@ -224,7 +232,7 @@ const Gallery = ({ setTheme, friendPlaying }) => {
           onClick={handleStop}
           aria-label="Stop audio"
         >
-          Stop
+          עצור מוזיקה
         </button>
       )}
     </>

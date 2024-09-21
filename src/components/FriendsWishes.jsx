@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import VideoNotePlayer from "./VideoNotePlayer";
-import { useState } from "react";
 import AudioPlayer from "./AudioPlayer";
 
-const FriendsWishes = ({ theme = "blackYellow", setFriendPlaying , isFriendPlaying}) => {
+const FriendsWishes = ({ theme = "blackYellow" , setFriendPlaying, isFriendPlaying }) => {
+  // State to track the currently playing friend's ID
+  const [currentlyPlayingId, setCurrentlyPlayingId] = useState(null);
+
   const wishes = [
     {
       id: 1,
@@ -40,7 +42,6 @@ const FriendsWishes = ({ theme = "blackYellow", setFriendPlaying , isFriendPlayi
       video: "./videos/video1.mp4",
       // No audio for שלומי
     },
-
     {
       id: 5,
       name: "פסו",
@@ -70,7 +71,10 @@ const FriendsWishes = ({ theme = "blackYellow", setFriendPlaying , isFriendPlayi
           friend={friend}
           index={index}
           theme={theme}
-          setFriendPlaying={setFriendPlaying} // Pass down the function
+          currentlyPlayingId={currentlyPlayingId} // Pass down the currently playing ID
+          setCurrentlyPlayingId={setCurrentlyPlayingId} // Pass down the setter function
+          setFriendPlaying={setFriendPlaying}
+          isFriendPlaying={isFriendPlaying}
         />
       ))}
       <div className="all-friends">
@@ -85,12 +89,33 @@ const FriendsWishes = ({ theme = "blackYellow", setFriendPlaying , isFriendPlayi
   );
 };
 
-const FriendMessage = ({ friend, index, theme, setFriendPlaying , isFriendPlaying}) => {
+const FriendMessage = ({
+  friend,
+  index,
+  theme,
+  currentlyPlayingId,
+  setCurrentlyPlayingId,
+  setFriendPlaying,
+  isFriendPlaying,
+}) => {
   const [isExpanded, setIsExpanded] = useState(true);
   const isEven = index % 2 === 0;
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded); // Toggle the expanded state
+  };
+
+  // Determine if this friend's audio is currently playing
+  const isPlaying = currentlyPlayingId === friend.id;
+
+  // Handler to set this friend as the currently playing one
+  const handlePlay = () => {
+    setCurrentlyPlayingId(friend.id);
+  };
+
+  // Handler to pause the currently playing audio
+  const handlePause = () => {
+    setCurrentlyPlayingId(null);
   };
 
   return (
@@ -108,7 +133,11 @@ const FriendMessage = ({ friend, index, theme, setFriendPlaying , isFriendPlayin
               <AudioPlayer
                 src={friend.audio}
                 theme={theme}
-                setFriendPlaying={setFriendPlaying} // Pass down the function
+                isPlaying={isPlaying} // Pass down if this audio should be playing
+                setCurrentlyPlayingId={handlePlay} // Function to set this as playing
+                onPause={handlePause} // Function to pause
+                id={friend.id} // Pass down the friend's ID
+                setFriendPlaying={setFriendPlaying}
                 isFriendPlaying={isFriendPlaying}
               />
             )}

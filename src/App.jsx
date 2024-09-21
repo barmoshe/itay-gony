@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Cover from './components/Cover';
 import Gallery from './components/Gallery';
 import FriendsWishes from './components/FriendsWishes';
-import AudioPlayer from './components/AudioPlayer';
 import './App.css';
 
 function App() {
   const [theme, setTheme] = useState('default'); // Add a state for the theme
   const [isFriendPlaying, setIsFriendPlaying] = useState(false); // Track if a friend audio is playing
+
+  useEffect(() => {
+    console.log('11Friend playing: ', isFriendPlaying);
+  }, [isFriendPlaying]);
 
   const handleScrollDown = () => {
     const gallerySection = document.getElementById('gallery');
@@ -25,8 +28,11 @@ function App() {
       <Gallery setTheme={setTheme} friendPlaying={isFriendPlaying} />
       <br/><br/>
       <br/><hr /><br/><br/>
-      <FriendsWishes theme={theme} setFriendPlaying={setIsFriendPlaying} isFriendPlaying={isFriendPlaying} />
-   
+      <FriendsWishes 
+        theme={theme} 
+        setFriendPlaying={setIsFriendPlaying} 
+        isFriendPlaying={isFriendPlaying} 
+      />
       <br/><br/>
       <div className="temp" />
     </div>

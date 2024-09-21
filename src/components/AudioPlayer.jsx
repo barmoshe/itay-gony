@@ -65,7 +65,7 @@ const themeStyles = {
 
 // Define inline styles using a JavaScript object
 const getStyles = (isHovered, windowWidth, theme) => {
-  // Fallback to 'green' theme if the provided theme is undefined or invalid
+  // Fallback to 'blackYellow' theme if the provided theme is undefined or invalid
   const themeColors = themeStyles[theme] || themeStyles.blackYellow;
 
   const buttonSize = windowWidth < 600 ? "50px" : "70px";
@@ -143,8 +143,12 @@ const getStyles = (isHovered, windowWidth, theme) => {
 const AudioPlayer = ({
   src,
   theme = "blackYellow",
+  isPlaying,
+  setCurrentlyPlayingId,
   setFriendPlaying,
   isFriendPlaying,
+  onPause,
+  id,
 }) => {
   const audioRef = useRef(null);
   const canvasRef = useRef(null);
@@ -152,13 +156,11 @@ const AudioPlayer = ({
   const audioContextRef = useRef(null);
   const analyserRef = useRef(null);
   const sourceRef = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [localIsPlaying, setLocalIsPlaying] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [audioEnded, setAudioEnded] = useState(false);
   const size = useWindowSize();
   const styles = getStyles(isHovered, size.width, theme);
-
-
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -257,7 +259,7 @@ const AudioPlayer = ({
         const progress = audio.currentTime / audio.duration || 0;
         const progressWidth = canvas.width * progress;
         const progressBarHeight = size.width < 600 ? 15 : 20;
-        //fill style with themeColors.primaryColor with opacity 0.5
+        // Fill style with themeColors.primaryColor with opacity 0.5
         const progressBarColor = themeColors.primaryColor + "80";
         canvasCtx.fillStyle = progressBarColor;
         canvasCtx.fillRect(
@@ -268,12 +270,12 @@ const AudioPlayer = ({
         );
       } else {
         // Clear the canvas
-        canvasCtx.fillStyle = themeColors.backgroundColor;
+        canvasCtx.fillStyle = themeStyles[theme]?.backgroundColor || "#efe7b1";
         canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
 
         // Draw thin straight line
         canvasCtx.lineWidth = 2;
-        canvasCtx.strokeStyle = themeColors.accentColor;
+        canvasCtx.strokeStyle = themeStyles[theme]?.accentColor || "#FFA500";
         canvasCtx.beginPath();
         canvasCtx.moveTo(0, canvas.height / 2);
         canvasCtx.lineTo(canvas.width, canvas.height / 2);
@@ -285,9 +287,9 @@ const AudioPlayer = ({
     draw();
 
     const handleEnded = () => {
-      setIsPlaying(false);
+      setLocalIsPlaying(false);
       setAudioEnded(true);
-      if (setFriendPlaying) setFriendPlaying(false); // Notify parent
+      onPause(); // Notify parent that audio has ended
     };
 
     audio.addEventListener("ended", handleEnded);
@@ -297,27 +299,34 @@ const AudioPlayer = ({
       audio.removeEventListener("ended", handleEnded);
       window.removeEventListener("resize", handleResize);
     };
-  }, [isPlaying, audioEnded, src, size.width, theme, setFriendPlaying]); // Added setFriendPlaying as a dependency
+  }, [isPlaying, audioEnded, src, size.width, theme, onPause]);
 
-  const togglePlayPause = () => {
+  // Effect to handle play/pause based on isPlaying prop
+  useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    if (!isPlaying) {
-      audio
-        .play()
+    if (isPlaying) {
+      audio.play()
         .then(() => {
-          setIsPlaying(true);
+          setFriendPlaying(true);
+          setLocalIsPlaying(true);
           setAudioEnded(false);
-          if (setFriendPlaying) setFriendPlaying(true); // Notify parent
         })
         .catch((error) => {
           console.error("Error playing audio:", error);
         });
     } else {
       audio.pause();
-      setIsPlaying(false);
-      if (setFriendPlaying) setFriendPlaying(false); // Notify parent
+      setLocalIsPlaying(false);
+    }
+  }, [isPlaying]);
+
+  const togglePlayPause = () => {
+    if (!isPlaying) {
+      setCurrentlyPlayingId(); // Notify parent to set this audio as playing
+    } else {
+      onPause(); // Notify parent to pause
     }
   };
 
