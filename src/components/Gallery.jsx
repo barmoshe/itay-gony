@@ -47,8 +47,8 @@ const fadeVolume = (audio, targetVolume, duration = 500) => {
 
     // If there's an audio currently playing, adjust its volume based on friendPlaying
     if (currentAudio) {
-      const targetVolume = friendPlaying ? 0.1 : 1.0; // 14% or 100%
-      fadeVolume(currentAudio, targetVolume, 1000); // 0.5 seconds
+      const targetVolume = friendPlaying ? 0.05 : 1.0;
+      fadeVolume(currentAudio, targetVolume, 800); // 0.5 seconds
     }
 
     // Cleanup function to clear any ongoing fade intervals

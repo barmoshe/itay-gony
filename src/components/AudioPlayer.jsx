@@ -319,6 +319,8 @@ const AudioPlayer = ({
     } else {
       audio.pause();
       setLocalIsPlaying(false);
+      setFriendPlaying(false);
+
     }
   }, [isPlaying]);
 

@@ -53,6 +53,14 @@ const FriendsWishes = ({ theme = "blackYellow" , setFriendPlaying, isFriendPlayi
     },
     {
       id: 6,
+      name: "נהוראי",
+      photo: "./imgs/NEORAY.jpg",
+      message: "״טקסט לדוגמא״",
+      quote: "״טקסט לדוגמא״",
+
+    },
+    {
+      id: 7,
       name: "ברררררררר",
       photo: "./imgs/BAR.png",
       // No text message for בר
