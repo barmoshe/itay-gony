@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Cover from './components/Cover';
 import Gallery from './components/Gallery';
 import FriendsWishes from './components/FriendsWishes';
+import AudioPlayer from './components/AudioPlayer';
 import './App.css';
 
 function App() {
+  const [theme, setTheme] = useState('default'); // Add a state for the theme
+  const [isFriendPlaying, setIsFriendPlaying] = useState(false); // Track if a friend audio is playing
+
   const handleScrollDown = () => {
     const gallerySection = document.getElementById('gallery');
     if (gallerySection) {
@@ -17,10 +21,14 @@ function App() {
   return (
     <div className="App">
       <Cover onScrollDown={handleScrollDown} />
-      <Gallery />
+      {/* Pass the setTheme function to the Gallery to update the theme */}
+      <Gallery setTheme={setTheme} friendPlaying={isFriendPlaying} />
       <br/><br/>
       <br/><hr /><br/><br/>
-      <FriendsWishes />
+      <FriendsWishes theme={theme} setFriendPlaying={setIsFriendPlaying} />
+   
+      <br/><br/>
+      <div className="temp" />
     </div>
   );
 }

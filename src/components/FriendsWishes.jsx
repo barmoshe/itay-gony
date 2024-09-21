@@ -1,17 +1,16 @@
 import React from "react";
 import VideoNotePlayer from "./VideoNotePlayer";
 import { useState } from "react";
+import AudioPlayer from "./AudioPlayer";
 
-const FriendsWishes = () => {
+const FriendsWishes = ({ theme = "blackYellow", setFriendPlaying }) => {
   const wishes = [
     {
       id: 1,
       name: "אופיר",
       photo: "./imgs/OFIR.jpg",
-      message:
-        "דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא  דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא",
       quote: "״תודה רברררר״",
-      audio: "/audio/opir.mp3",
+      audio: "./audio/SHISH.mp3",
       // No video for אופיר
     },
     {
@@ -38,7 +37,7 @@ const FriendsWishes = () => {
       photo: "./imgs/SHLOMI.jpg",
       // No text message for שלומי
       quote: "״טקסט לדוגמא טקסט לדוגמא טקסט לדוגמא טקסט לדוגמא טקסט לדוגמא״",
-      video: "/videos/shalomi.mp4",
+      video: "./videos/video1.mp4",
       // No audio for שלומי
     },
 
@@ -48,7 +47,7 @@ const FriendsWishes = () => {
       photo: "./imgs/PESSO.jpg",
       message:
         "דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא  דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא",
-      quote: '״גם בתקופות הכי קשות אצעק את שמכם ברחובות״'
+      quote: "״גם בתקופות הכי קשות אצעק את שמכם ברחובות״",
       // No audio or video for פסו
     },
     {
@@ -56,8 +55,8 @@ const FriendsWishes = () => {
       name: "ברררררררר",
       photo: "./imgs/BAR.png",
       // No text message for בר
-      quote: '״אוהב מכל הלב, אוהב אותכם עד שזה כואב״',
-      audio: "/audio/bar.mp3",
+      quote: "״אוהב מכל הלב, אוהב אותכם עד שזה כואב״",
+      audio: "./audio/SHISH.mp3",
       // No video for בר
     },
   ];
@@ -66,7 +65,13 @@ const FriendsWishes = () => {
     <div id="friends-wishes" className="friends-wishes-container">
       <h2>ברכות מהחברים</h2>
       {wishes.map((friend, index) => (
-        <FriendMessage key={friend.id} friend={friend} index={index} />
+        <FriendMessage
+          key={friend.id}
+          friend={friend}
+          index={index}
+          theme={theme}
+          setFriendPlaying={setFriendPlaying} // Pass down the function
+        />
       ))}
       <div className="all-friends">
         <h4>ברכה כללית מכל החברים</h4>
@@ -80,14 +85,13 @@ const FriendsWishes = () => {
   );
 };
 
-const FriendMessage = ({ friend, index }) => {
+const FriendMessage = ({ friend, index, theme, setFriendPlaying }) => {
   const [isExpanded, setIsExpanded] = useState(true);
   const isEven = index % 2 === 0;
 
   const toggleExpand = () => {
-    setIsExpanded(true);
-  }
-
+    setIsExpanded(!isExpanded); // Toggle the expanded state
+  };
 
   return (
     <div className={`friend-message ${isEven ? "even" : "odd"}`}>
@@ -100,9 +104,25 @@ const FriendMessage = ({ friend, index }) => {
             {friend.message && (
               <div className="message-content">{friend.message}</div>
             )}
-            {friend.audio && <audio controls src={friend.audio} />}
+            {friend.audio && (
+              <AudioPlayer
+                src={friend.audio}
+                theme={theme}
+                setFriendPlaying={setFriendPlaying} // Pass down the function
+              />
+            )}
             {friend.video && (
-              <video controls src={friend.video} onClick={toggleExpand} style={{ width: "25%",borderRadius: "50%" ,aspectRatio: "1/1" ,objectFit: "cover"}} />
+              <video
+                controls
+                src={friend.video}
+                onClick={toggleExpand}
+                style={{
+                  width: "25%",
+                  borderRadius: "50%",
+                  aspectRatio: "1/1",
+                  objectFit: "cover",
+                }}
+              />
             )}
             <p className="friend-quote">{friend.quote}</p>
           </>
