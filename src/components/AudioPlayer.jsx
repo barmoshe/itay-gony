@@ -307,7 +307,8 @@ const AudioPlayer = ({
     if (!audio) return;
 
     if (isPlaying) {
-      audio.play()
+      audio
+        .play()
         .then(() => {
           setFriendPlaying(true);
           setLocalIsPlaying(true);
@@ -320,7 +321,6 @@ const AudioPlayer = ({
       audio.pause();
       setLocalIsPlaying(false);
       setFriendPlaying(false);
-
     }
   }, [isPlaying]);
 

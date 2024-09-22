@@ -317,6 +317,8 @@ a:hover {
 
 .message-bubble {
   flex: 1;
+  display: flex;
+  flex-direction: column;
   background-color: #ffffff;
   border-radius: 20px;
   padding: 20px;
@@ -564,7 +566,7 @@ audio {
   padding: 40px 20px;
   margin: 50px auto;
   max-width: 800px;
-  background-color: #e0dfdb; /* Light background to contrast with container */
+  background-color: #fff8e1; /* Light background to contrast with container */
   border-radius: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -588,7 +590,7 @@ audio {
 }
 
 .all-friends h4::after {
-  content: '';
+  content: "";
   display: block;
   width: 50%;
   height: 3px;
@@ -711,7 +713,7 @@ audio {
 .gallery-item.selected img {
   transform: scale(1.05);
 }
-*{
+* {
   text-shadow: #000000 0.5px 0.5px 0.5px;
 }
 
@@ -780,4 +782,175 @@ audio {
 .container:hover .icon {
   fill: #ffffff;
 }
+/* src/components/CustomVideoPlayer.css */
 
+.custom-video-player {
+  position: relative;
+  width: 33vw; /* Adjusted width for better visibility */
+  aspect-ratio: 1 / 1; /* Maintain aspect ratio */
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: center;
+  align-self: center;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3); /* Enhanced shadow for depth */
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.custom-video-player:hover {
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+  transform: translateY(-5px); /* Subtle lift on hover */
+}
+
+.video-element {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  filter: brightness(1);
+  transition: filter 0.3s ease;
+}
+
+.custom-video-player.playing .video-element {
+  filter: brightness(0.7); /* Dimmed when playing */
+}
+
+/* Black Overlay */
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2); /* Updated opacity */
+  transition: opacity 0.5s ease;
+  pointer-events: none; /* Allow clicks to pass through */
+}
+
+.video-overlay.fade-out {
+  opacity: 0;
+}
+
+.video-overlay.visible {
+  opacity: 0.5;
+}
+
+/* SVG Circular Progress Bar */
+.progress-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: rotate(-90deg); /* Start progress from top */
+}
+
+.progress-ring__circle {
+  transition: stroke-dashoffset 0.5s linear;
+  transform: rotate(0deg);
+  transform-origin: 50% 50%;
+  stroke-linecap: round; /* Rounded ends for smoothness */
+}
+
+/* Play/Pause Button */
+.play-pause-button-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+  border: none;
+  border-radius: 50%;
+  padding: 20px; /* Increased padding for better touch targets */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--couple-quote-shadow);
+  cursor: pointer;
+  z-index: 3;
+  transition: background 0.3s ease, transform 0.3s ease, opacity 0.5s ease;
+  opacity: 1;
+}
+
+.play-pause-button-video:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: translate(-50%, -50%) scale(1.1); /* Smooth scaling on hover */
+}
+
+.play-pause-button-video:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--text-color);
+}
+
+.play-pause-button-video.fade-out-button {
+  opacity: 0;
+}
+
+.play-pause-button-video.fade-in-button {
+  opacity: 1;
+}
+
+.play-pause-button-video svg {
+  transition: transform 0.3s ease;
+}
+
+.custom-video-player.playing .play-pause-button-video svg {
+  transform: scale(1.1); /* Slightly enlarge icon when playing */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .custom-video-player {
+    width: 250px; /* Adjusted size for medium screens */
+    height: 250px;
+  }
+
+  /* No direct CSS control over 'r' */
+  /* Managed via React */
+
+  .play-pause-button-video {
+    padding: 18px;
+  }
+
+  .play-pause-button-video svg {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+@media (max-width: 768px) {
+  .custom-video-player {
+    width: 520px; /* Further adjusted size for tablets */
+    height: 520px;
+  }
+
+  /* Managed via React */
+
+  .play-pause-button-video {
+    padding: 16px;
+  }
+
+  .play-pause-button-video svg {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .custom-video-player {
+    width: 310px; /* Adjusted size for mobile devices */
+    height: 310px;
+  }
+
+  /* Managed via React */
+
+  .play-pause-button-video {
+    padding: 14px;
+  }
+
+  .play-pause-button-video svg {
+    width: 35px;
+    height: 35px;
+  }
+}

@@ -28,8 +28,7 @@ const CirclePlayer = ({ src }) => {
 
   const handleTimeUpdate = () => {
     const video = videoRef.current;
-    const progress =
-      (video.currentTime / video.duration) * 100 || 0;
+    const progress = (video.currentTime / video.duration) * 100 || 0;
     video.style.setProperty("--progress", `${progress}%`);
   };
 

@@ -5,78 +5,88 @@ const Gallery = ({ setTheme, friendPlaying }) => {
   const [currentAudio, setCurrentAudio] = useState(null); // Track the current playing audio
   const [isPlaying, setIsPlaying] = useState(false); // Track if the audio is playing
   const [selectedImage, setSelectedImage] = useState(null); // Track the selected image
+  const [isMobile, setIsMobile] = useState(false); // Track if the device is mobile
+  const [currentAudioTime, setCurrentAudioTime] = useState(0); // Track the current audio time
 
-  // Ref to store the current fade interval
   const fadeTimeoutRef = useRef(null);
 
-const fadeVolume = (audio, targetVolume, duration = 500) => {
-  if (!audio) return Promise.resolve();
-
-  // Check screen width to determine if it's a mobile device
-  const isMobile = window.innerWidth <= 768; // Adjust this threshold as needed
-
-  // If mobile, set volume directly without fading
-  if (isMobile) {
-    audio.volume = targetVolume;
-    return Promise.resolve();
-  }
-
-  // Otherwise, perform a fade for non-mobile devices
-  return new Promise((resolve) => {
-    const fadeSteps = 30;
-    const volumeStep = (targetVolume - audio.volume) / fadeSteps;
-    let currentStep = 0;
-
-    const fade = setInterval(() => {
-      if (currentStep < fadeSteps) {
-        audio.volume = Math.min(Math.max(audio.volume + volumeStep, 0), 1);
-        currentStep++;
-      } else {
-        clearInterval(fade);
-        resolve();
-      }
-    }, duration / fadeSteps);
-
-    // Store the fade interval to clear if needed
-    fadeTimeoutRef.current = fade;
-  });
-};
-
+  // Detect if the device is mobile
   useEffect(() => {
-    console.log("Friend playing: ", friendPlaying);
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768); // Adjust this threshold as needed
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
 
-    // If there's an audio currently playing, adjust its volume based on friendPlaying
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  // Synchronize the time and switch between regular audio smoothly
+  const switchAudioSource = async (currentTime, newAudioSrc) => {
     if (currentAudio) {
-      const targetVolume = friendPlaying ? 0.05 : 1.0;
-      fadeVolume(currentAudio, targetVolume, 800); // 0.5 seconds
+      currentAudio.pause();
     }
 
-    // Cleanup function to clear any ongoing fade intervals
-    return () => {
-      if (fadeTimeoutRef.current) {
-        clearInterval(fadeTimeoutRef.current);
-      }
-    };
-  }, [friendPlaying, currentAudio]);
+    const newAudio = new Audio(newAudioSrc);
+    newAudio.currentTime = currentTime;
+    newAudio.volume = 0.05; // Set the volume to 10%
+    setCurrentAudio(newAudio);
+
+    newAudio.play();
+    setIsPlaying(true);
+
+    newAudio.addEventListener("timeupdate", () => {
+      setCurrentAudioTime(newAudio.currentTime);
+    });
+
+    newAudio.addEventListener("ended", () => {
+      setIsPlaying(false);
+      setSelectedImage(null);
+    });
+  };
+
+  const handleImageClick = async (image, index) => {
+    changeWebpageTheme(image.theme);
+    setSelectedImage(index);
+
+    // Only use the regular audio source
+    const audioToPlay = image.audio.regular;
+
+    await switchAudioSource(currentAudioTime, audioToPlay);
+  };
+
+  const handleStop = () => {
+    if (currentAudio) {
+      currentAudio.pause();
+      setIsPlaying(false);
+      setSelectedImage(null);
+    }
+  };
 
   const images = [
     {
       src: "./imgs/img1.jpg",
       alt: "תמונה 1",
       theme: "green",
-      audio: "./audio/MATOK.mp3",
+      audio: {
+        regular: "./audio/MATOK.mp3",
+      },
     },
     {
       src: "./imgs/img2.jpg",
       alt: "תמונה 2",
       theme: "blackYellow",
-      audio: "./audio/BEITAR.mp3",
+      audio: {
+        regular: "./audio/BEITAR.mp3",
+      },
     },
     {
       src: "./imgs/img3.jpg",
       alt: "תמונה 3",
       theme: "pinkPurple",
-      audio: "./audio/the-spins.mp3",
+      audio: {
+        regular: "./audio/the-spins.mp3",
+      },
     },
   ];
 
@@ -89,7 +99,7 @@ const fadeVolume = (audio, targetVolume, duration = 500) => {
       fontFamily,
       boxShadow,
       coupleQuoteShadow;
-    setTheme(theme); // Update the theme in the parent component
+    setTheme(theme);
     switch (theme) {
       case "green":
         primaryColor = "#7CD441";
@@ -99,7 +109,7 @@ const fadeVolume = (audio, targetVolume, duration = 500) => {
         accentColor = "#4CAF50";
         fontFamily = "'Amatic SC', cursive";
         boxShadow = "0 4px 20px rgba(124, 212, 65, 0.5)";
-        coupleQuoteShadow = "#7CD441"; // Green text shadow for the quote
+        coupleQuoteShadow = "#7CD441";
         break;
       case "blackYellow":
         primaryColor = "#FFD700";
@@ -109,7 +119,7 @@ const fadeVolume = (audio, targetVolume, duration = 500) => {
         accentColor = "#FFA500";
         fontFamily = "'Inter', sans-serif";
         boxShadow = "0 4px 20px rgba(255, 215, 0, 0.5)";
-        coupleQuoteShadow = "#FFD700"; // Yellow text shadow for the quote
+        coupleQuoteShadow = "#FFD700";
         break;
       case "pinkPurple":
         primaryColor = "#D81B60";
@@ -119,9 +129,8 @@ const fadeVolume = (audio, targetVolume, duration = 500) => {
         accentColor = "#E91E63";
         fontFamily = "'Alef', sans-serif";
         boxShadow = "0 4px 20px rgba(216, 27, 96, 0.5)";
-        coupleQuoteShadow = "#D81B60"; // Pink text shadow for the quote
+        coupleQuoteShadow = "#D81B60";
         break;
-      // Add other themes as needed
       default:
         primaryColor = "#FFD700";
         secondaryColor = "#000000";
@@ -130,13 +139,10 @@ const fadeVolume = (audio, targetVolume, duration = 500) => {
         accentColor = "#e5c100";
         fontFamily = "'Alef', sans-serif";
         boxShadow = "none";
-        coupleQuoteShadow = "#FFD700"; // Default yellow text shadow for the quote
+        coupleQuoteShadow = "#FFD700";
     }
 
-    document.documentElement.style.setProperty(
-      "--primary-color",
-      primaryColor
-    );
+    document.documentElement.style.setProperty("--primary-color", primaryColor);
     document.documentElement.style.setProperty(
       "--secondary-color",
       secondaryColor
@@ -152,55 +158,8 @@ const fadeVolume = (audio, targetVolume, duration = 500) => {
     document.documentElement.style.setProperty(
       "--couple-quote-shadow",
       coupleQuoteShadow
-    ); // Set the text shadow color for the couple-quote
+    );
   }
-
-  // Function to handle image click and play the corresponding audio
-  const handleImageClick = async (image, index) => {
-    changeWebpageTheme(image.theme);
-    setSelectedImage(index); // Set the selected image
-
-    if (currentAudio) {
-      currentAudio.pause();
-      currentAudio.currentTime = 0;
-      // Optionally, fade out the current audio
-      await fadeVolume(currentAudio, 0, 500);
-      setIsPlaying(false);
-      setSelectedImage(null);
-    }
-
-    const newAudio = new Audio(image.audio);
-
-    if (image.audio === "src/assets/audio/BEITAR.mp3") {
-      newAudio.currentTime = 0;
-    }
-
-    // Set initial volume based on friendPlaying
-    newAudio.volume = friendPlaying ? 0.14 : 1.0;
-
-    newAudio.play();
-    setIsPlaying(true);
-    setCurrentAudio(newAudio);
-    setSelectedImage(index);
-
-    newAudio.addEventListener("ended", () => {
-      setIsPlaying(false);
-      setSelectedImage(null); // Deselect the image when the audio ends
-    });
-  };
-
-  // Function to handle stop audio
-  const handleStop = () => {
-    if (currentAudio) {
-      // Fade out before stopping
-      fadeVolume(currentAudio, 0, 500).then(() => {
-        currentAudio.pause();
-        currentAudio.currentTime = 0;
-        setIsPlaying(false);
-        setSelectedImage(null); // Deselect the image when the audio stops
-      });
-    }
-  };
 
   return (
     <>
@@ -208,7 +167,9 @@ const fadeVolume = (audio, targetVolume, duration = 500) => {
       <section id="gallery" aria-label="גלריית תמונות">
         {images.map((image, index) => (
           <div
-            className={`gallery-item ${selectedImage === index ? "selected" : ""}`}
+            className={`gallery-item ${
+              selectedImage === index ? "selected" : ""
+            }`}
             key={index}
             tabIndex={0}
             onClick={() => handleImageClick(image, index)}
