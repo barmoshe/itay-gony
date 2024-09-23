@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 const PushButtonGame = () => {
   const [pressCount, setPressCount] = useState(0);
   const [prompt, setPrompt] = useState("תלחצו על הכפתור");
-  const [buttonStyle, setButtonStyle] = useState(getRandomPosition());
+  const [buttonStyle, setButtonStyle] = useState(getRandomPosition(true)); // Initialize button position above the prompt
   const [gameEnded, setGameEnded] = useState(false);
   const [dimScreen, setDimScreen] = useState(false); // State to control screen dimming
   const videoRef = useRef(null); // Ref for the video
@@ -19,7 +19,7 @@ const PushButtonGame = () => {
   }, [gameEnded]);
 
   // Function to generate random positions within the viewport, adjusted for mobile
-  function getRandomPosition() {
+  function getRandomPosition(isInitial = false) {
     const padding = 50; // Padding from the screen edges
     const buttonWidth = 150; // Approximate width of the button
     const buttonHeight = 20; // Approximate height of the button
@@ -29,8 +29,16 @@ const PushButtonGame = () => {
     const maxHeight = window.innerHeight - buttonHeight - padding;
 
     const x = Math.max(Math.floor(Math.random() * maxWidth), padding);
-    const y = Math.max(Math.floor(Math.random() * maxHeight), padding);
-    //make sure its not on the prompt
+
+    // If it's the initial position, place it above the prompt (adjust based on prompt's actual position)
+    let y;
+    if (isInitial) {
+      y = Math.min(50, window.innerHeight / 4); // Ensure it's near the top
+    } else {
+      y = Math.max(Math.floor(Math.random() * maxHeight), padding);
+    }
+
+    // Ensure the button is not overlapping with the prompt (position is hypothetical, adjust as needed)
     if (x > 100 && x < 180 && y > 100 && y < 180) {
       return getRandomPosition();
     }
@@ -48,6 +56,7 @@ const PushButtonGame = () => {
       "נוווווווו",
       "מדוברררר",
       "רמאיייייייייי",
+      "יאללה ביתררר",
       "דשקרן",
       "ששששלללוום",
       "דשקרןןן",

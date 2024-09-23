@@ -30,6 +30,8 @@ const Gallery = ({ setTheme, friendPlaying }) => {
     const newAudio = new Audio(newAudioSrc);
     newAudio.currentTime = currentTime;
     setCurrentAudio(newAudio);
+    //preloader for the audio
+    newAudio.preload = "auto";
 
     newAudio.play();
     setIsPlaying(true);
@@ -39,6 +41,10 @@ const Gallery = ({ setTheme, friendPlaying }) => {
     });
 
     newAudio.addEventListener("ended", () => {
+      setIsPlaying(false);
+      setSelectedImage(null);
+    });
+    newAudio.addEventListener("pause", () => {
       setIsPlaying(false);
       setSelectedImage(null);
     });

@@ -45,11 +45,8 @@ function App() {
       <br />
       <PushButtonGame/>
       <div className="all-friends">
-        <h4>ברכה כללית מכל החברים</h4>
-        <p className="all-friends-message">
-          כל החברים מאחלים לכם כל טוב בעולם ובעתיד, ומקווים שתמצאו את האושר
-          האמיתי ביחד!
-        </p>
+        <h4>ברכה  החברים</h4>
+        <p className="all-friends-message">מאחלים לכם את כל הטוב שבעולם ולעוד הרבה זמנים טובים ביחד , אוהבים 🫶 </p>
         <img src="./imgs/ALL.jpg" alt="ברכה כללית מכל החברים" />
       </div>
     </div>

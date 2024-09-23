@@ -34,36 +34,32 @@ const FriendsWishes = ({
       name: "אפיק",
       photo: "./imgs/AFIK.jpg",
       // No text message for אפיק
-      quote: "״המשטרה לא תעזור הלב שלי תמיד יהיה צהוב שחור״",
+      quote: "אוהב מכל הלב💛",
       message:
-        "אהובים שלי המון מזל טוב לרגל האירוסים דרך חדשה נפתחת בפניכם מתרגש ומאחל לכם המון אושר שמחה ואהבה אינסופית בדרך המשותפת שלכם. שתמשיכו לבנות יחד קשר חזק, מלא בהבנה, תמיכה וחברות אמיתית. אוהב מכל הלב💛",
+        "אהובים שלי המון מזל טוב לרגל האירוסים דרך חדשה נפתחת בפניכם מתרגש ומאחל לכם המון אושר שמחה ואהבה אינסופית בדרך המשותפת שלכם. שתמשיכו לבנות יחד קשר חזק, מלא בהבנה, תמיכה וחברות אמיתית.",
       // No text for אפיק
     },
-
     {
       id: 4,
+      name: "פסו",
+      photo: "./imgs/PESSO.jpg",
+      video: "./video/PESSO.mov",
+      poster: "./imgs/PESSO2.jpg",
+    },
+    {
+      id: 5,
       name: "נהוראי",
       photo: "./imgs/NEORAY.jpg",
       quote: "״טקסט לדוגמא״",
       audio: "./audio/BEITAR.mp3",
     },
-    {
-      id: 5,
-      name: "שלומי",
-      photo: "./imgs/SHLOMI.jpg",
-      // No text message for שלומי
-      video: "./video/SHLOMI.mov",
-      poster: "./imgs/SHLOMI2.jpg",
-      // No audio for שלומי
-    },
+
     {
       id: 6,
-      name: "פסו",
-      photo: "./imgs/PESSO.jpg",
-      message:
-        "דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא  דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא",
-      quote: "״גם בתקופות הכי קשות אצעק את שמכם ברחובות״",
-      // No audio or video for פסו
+      name: "שלומי",
+      photo: "./imgs/SHLOMI.jpg",
+      video: "./video/SHLOMI.mov",
+      poster: "./imgs/SHLOMI2.jpg",
     },
 
     {
@@ -71,7 +67,7 @@ const FriendsWishes = ({
       name: "ברררררררר",
       photo: "./imgs/BAR.png",
       // No text message for בר
-      quote: "״אוהב מכל הלב, אוהב אותכם עד שזה כואב״",
+      quote: "אוהב המון, ברררררררררררר  💛 🖤 ",
       audio: "./audio/BAR.mp3",
       // No video for בר
     },
@@ -107,7 +103,6 @@ const FriendMessage = ({
 }) => {
   const [isExpanded, setIsExpanded] = useState(true);
   const isEven = index % 2 === 0;
-
   const toggleExpand = () => {
     setIsExpanded(!isExpanded); // Toggle the expanded state
   };
@@ -255,7 +250,6 @@ const CustomVideoPlayer = ({ src, poster, theme }) => {
       <video
         ref={videoRef}
         src={src}
-        onClick={(e) => e.stopPropagation()} // Prevent click bubbling to container
         onPlay={(e) => {
           e.stopPropagation();
           handleVideoPlay(e);
@@ -283,10 +277,6 @@ const CustomVideoPlayer = ({ src, poster, theme }) => {
         className={`play-pause-button-video ${
           isVideoPlaying ? "fade-out-button" : "fade-in-button"
         }`}
-        onClick={(e) => {
-          e.stopPropagation(); // Prevent click from bubbling to container
-          togglePlayPause();
-        }}
         aria-label={isVideoPlaying ? "Pause Video" : "Play Video"}
       >
         {isVideoPlaying ? (
