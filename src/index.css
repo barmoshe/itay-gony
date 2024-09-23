@@ -16,6 +16,11 @@
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
 }
+svg {
+  max-width: 40px;
+  max-height: 40px;
+  fill: currentColor;
+}
 
 a {
   font-weight: 500;

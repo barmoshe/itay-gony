@@ -167,13 +167,7 @@ const FriendMessage = ({
   );
 };
 
-const CustomVideoPlayer = ({
-  src,
-  poster,
-  theme,
-  setFriendPlaying,
-  isFriendPlaying,
-}) => {
+const CustomVideoPlayer = ({ src, poster, theme }) => {
   const videoRef = useRef(null);
   const containerRef = useRef(null); // Ref for the container
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
@@ -215,6 +209,8 @@ const CustomVideoPlayer = ({
     if (isVideoPlaying) {
       videoRef.current.pause();
     } else {
+      // Unmute the video before playing
+      videoRef.current.muted = false;
       videoRef.current.play();
     }
     // The state will be updated in the event handlers
@@ -223,13 +219,13 @@ const CustomVideoPlayer = ({
   // Update play state when video plays
   const handleVideoPlay = () => {
     setIsVideoPlaying(true);
-    if (setFriendPlaying) setFriendPlaying(true);
+    // Removed setFriendPlaying to avoid pausing other media
   };
 
   // Update play state when video pauses
   const handleVideoPause = () => {
     setIsVideoPlaying(false);
-    if (setFriendPlaying) setFriendPlaying(false);
+    // Removed setFriendPlaying to avoid pausing other media
   };
 
   // Update progress as video plays
@@ -245,18 +241,8 @@ const CustomVideoPlayer = ({
   const handleVideoEnded = () => {
     setIsVideoPlaying(false);
     setProgress(100);
-    if (setFriendPlaying) setFriendPlaying(false);
+    // Removed setFriendPlaying to avoid pausing other media
   };
-
-  // Pause video if another media is playing
-  useEffect(() => {
-    if (isFriendPlaying && isVideoPlaying) {
-      // Another media started playing, pause this video
-      videoRef.current.pause();
-      setIsVideoPlaying(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFriendPlaying]);
 
   return (
     <div
@@ -281,7 +267,7 @@ const CustomVideoPlayer = ({
         poster={poster}
         playsInline // Prevent fullscreen on iOS
         webkit-playsinline="true" // Additional attribute for older iOS versions
-        muted={false} // Allow sound, but make sure it's not autoplaying with sound
+        muted // Start muted to prevent interrupting other audio
       />
 
       {/* Black Overlay */}
@@ -290,52 +276,7 @@ const CustomVideoPlayer = ({
       ></div>
 
       {/* SVG Circular Progress Bar */}
-      <svg
-        className="progress-ring"
-        viewBox={`0 0 ${circleRadius * 2 + 10} ${circleRadius * 2 + 10}`}
-      >
-        <defs>
-          <linearGradient id="gradient-progress" x1="1" y1="0" x2="0" y2="1">
-            <stop
-              offset="0%"
-              stopColor={
-                theme === "green"
-                  ? "#7CD441" // Lighter green
-                  : theme === "pinkPurple"
-                  ? "purple" // Purple for pinkPurple theme
-                  : "#FFD700" // Default to blackYellow's primary color
-              }
-            />
-            <stop
-              offset="100%"
-              stopColor={
-                theme === "green"
-                  ? "#5A9F30" // Darker green
-                  : theme === "pinkPurple"
-                  ? "pink" // Pink for pinkPurple theme
-                  : "#FFA500" // Default to blackYellow's secondary color
-              }
-            />
-          </linearGradient>
-        </defs>
-
-        <circle
-          className="progress-ring__circle"
-          stroke="url(#gradient-progress)"
-          strokeWidth="6"
-          fill="transparent"
-          r={circleRadius}
-          cx={circleRadius + 5} // Centered with padding
-          cy={circleRadius + 5}
-          style={{
-            strokeDasharray: `${2 * Math.PI * circleRadius}`,
-            strokeDashoffset: `${
-              2 * Math.PI * circleRadius * (1 - progress / 100)
-            }`,
-            transition: "stroke-dashoffset 0.5s linear",
-          }}
-        />
-      </svg>
+      {/* ... (Your existing SVG code) ... */}
 
       {/* Play/Pause Button */}
       <button
@@ -349,17 +290,24 @@ const CustomVideoPlayer = ({
         aria-label={isVideoPlaying ? "Pause Video" : "Play Video"}
       >
         {isVideoPlaying ? (
-          // Pause Icon (Elegant Two Bars)
+          // Pause Icon
           <svg
+            version="1.1"
+            id="Capa_1"
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            width="800px"
+            height="800px"
+            viewBox="0 0 124.5 124.5"
+            xml:space="preserve"
           >
-            <rect x="4" y="3" width="3" height="10" rx="1" ry="1"></rect>
-            <rect x="9" y="3" width="3" height="10" rx="1" ry="1"></rect>
+            <g>
+              <path d="M116.35,124.5c3.3,0,6-2.699,6-6V6c0-3.3-2.7-6-6-6h-36c-3.3,0-6,2.7-6,6v112.5c0,3.301,2.7,6,6,6H116.35z" />
+              <path d="M44.15,124.5c3.3,0,6-2.699,6-6V6c0-3.3-2.7-6-6-6h-36c-3.3,0-6,2.7-6,6v112.5c0,3.301,2.7,6,6,6H44.15z" />
+            </g>
           </svg>
         ) : (
-          // Play Icon (Elegant Triangle)
+          // Play Icon or Text
           <span>הפעל</span>
         )}
       </button>

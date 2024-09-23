@@ -68,7 +68,7 @@ const Gallery = ({ setTheme, friendPlaying }) => {
       alt: "תמונה 1",
       theme: "green",
       audio: {
-        regular: "./audio/MATOK_LOW.wav",
+        regular: "./audio/MATOK_LOW.mp3",
       },
     },
     {
@@ -76,7 +76,7 @@ const Gallery = ({ setTheme, friendPlaying }) => {
       alt: "תמונה 2",
       theme: "blackYellow",
       audio: {
-        regular: "./audio/BEITAR_LOW.wav",
+        regular: "./audio/BEITAR_LOW.mp3",
       },
     },
     {
@@ -84,7 +84,7 @@ const Gallery = ({ setTheme, friendPlaying }) => {
       alt: "תמונה 3",
       theme: "pinkPurple",
       audio: {
-        regular: "./audio/the-spins_LOW.wav",
+        regular: "./audio/the-spins_LOW.mp3",
       },
     },
   ];
