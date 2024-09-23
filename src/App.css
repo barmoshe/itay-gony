@@ -1191,11 +1191,11 @@ audio {
 /* Video Container */
 .video-container {
   position: relative;
-  width: 300px;
-  height: 550px;
+  width: 50vw;
+  height: 65vh;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 4px 4px var(--secondary-color);
   margin-top: 20px;
 }
 
@@ -1284,4 +1284,8 @@ audio {
     font-size: 1.5rem;
     padding: 8px;
   }
+}
+.confetti-piece {
+  left: calc(var(--i) * 10%);
+  animation-duration: calc(2.5s + var(--i) * 0.3s);
 }

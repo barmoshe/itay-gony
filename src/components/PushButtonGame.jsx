@@ -5,16 +5,31 @@ const PushButtonGame = () => {
   const [prompt, setPrompt] = useState("תלחצו על הכפתור");
   const [buttonStyle, setButtonStyle] = useState(getRandomPosition(true)); // Initialize button position above the prompt
   const [gameEnded, setGameEnded] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false); // New state to control confetti visibility
   const [dimScreen, setDimScreen] = useState(false); // State to control screen dimming
   const videoRef = useRef(null); // Ref for the video
   const [isPlaying, setIsPlaying] = useState(false); // State to track if the video is playing
 
   useEffect(() => {
-    // Remove the dim effect after 10 seconds
     if (gameEnded) {
-      setTimeout(() => {
+      // Show confetti when the game ends
+      setShowConfetti(true);
+
+      // Remove confetti after 15 seconds
+      const confettiTimeout = setTimeout(() => {
+        setShowConfetti(false);
+      }, 15000);
+
+      // Remove the dim effect after 10 seconds (optional, adjust as needed)
+      const dimTimeout = setTimeout(() => {
         setDimScreen(false);
       }, 10000);
+
+      // Clean up timeouts when component unmounts or game restarts
+      return () => {
+        clearTimeout(confettiTimeout);
+        clearTimeout(dimTimeout);
+      };
     }
   }, [gameEnded]);
 
@@ -80,6 +95,18 @@ const PushButtonGame = () => {
     setIsPlaying(true);
   };
 
+  // Generate confetti pieces when game ends and showConfetti is true
+  const confettiPieces =
+    gameEnded && showConfetti
+      ? Array.from({ length: 100 }, (_, i) => (
+          <div
+            key={i}
+            className="confetti-piece"
+            style={{ "--i": ((i % 10) + 1).toString() }}
+          ></div>
+        ))
+      : null;
+
   return (
     <div className={`game-container ${dimScreen ? "dimmed" : ""}`}>
       {!gameEnded ? (
@@ -95,7 +122,7 @@ const PushButtonGame = () => {
         </>
       ) : (
         <div className="end-animation">
-          <div className="confetti"></div>
+          <div className="confetti">{confettiPieces}</div>
           <div className="video-container">
             <video
               ref={videoRef}
