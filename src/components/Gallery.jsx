@@ -29,7 +29,6 @@ const Gallery = ({ setTheme, friendPlaying }) => {
 
     const newAudio = new Audio(newAudioSrc);
     newAudio.currentTime = currentTime;
-    newAudio.volume = 0.05; // Set the volume to 10%
     setCurrentAudio(newAudio);
 
     newAudio.play();
@@ -69,7 +68,7 @@ const Gallery = ({ setTheme, friendPlaying }) => {
       alt: "תמונה 1",
       theme: "green",
       audio: {
-        regular: "./audio/MATOK.mp3",
+        regular: "./audio/MATOK_LOW.wav",
       },
     },
     {
@@ -77,7 +76,7 @@ const Gallery = ({ setTheme, friendPlaying }) => {
       alt: "תמונה 2",
       theme: "blackYellow",
       audio: {
-        regular: "./audio/BEITAR.mp3",
+        regular: "./audio/BEITAR_LOW.wav",
       },
     },
     {
@@ -85,7 +84,7 @@ const Gallery = ({ setTheme, friendPlaying }) => {
       alt: "תמונה 3",
       theme: "pinkPurple",
       audio: {
-        regular: "./audio/the-spins.mp3",
+        regular: "./audio/the-spins_LOW.wav",
       },
     },
   ];
