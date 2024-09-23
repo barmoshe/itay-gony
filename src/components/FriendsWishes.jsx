@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import AudioPlayer from "./AudioPlayer";
 import PushButtonGame from "./PushButtonGame";
+import { a } from "react-spring";
 
 const FriendsWishes = ({
   theme = "blackYellow",
@@ -22,6 +23,14 @@ const FriendsWishes = ({
     },
     {
       id: 2,
+      name: "שקד",
+      photo: "./imgs/SHAKED.jpg",
+      video: "./video/SHAKED.mov",
+      poster: "./imgs/SHAKED2.jpg",
+      // No audio or video for שקד
+    },
+    {
+      id: 3,
       name: "אפיק",
       photo: "./imgs/AFIK.jpg",
       // No text message for אפיק
@@ -30,24 +39,25 @@ const FriendsWishes = ({
         "אהובים שלי המון מזל טוב לרגל האירוסים דרך חדשה נפתחת בפניכם מתרגש ומאחל לכם המון אושר שמחה ואהבה אינסופית בדרך המשותפת שלכם. שתמשיכו לבנות יחד קשר חזק, מלא בהבנה, תמיכה וחברות אמיתית. אוהב מכל הלב💛",
       // No text for אפיק
     },
-    {
-      id: 3,
-      name: "שקד",
-      photo: "./imgs/SHAKED.jpg",
-      video: "./video/SHAKED.mov",
-      poster: "./imgs/SHAKED2.jpg",
-      // No audio or video for שקד
-    },
+
     {
       id: 4,
+      name: "נהוראי",
+      photo: "./imgs/NEORAY.jpg",
+      quote: "״טקסט לדוגמא״",
+      audio: "./audio/BEITAR.mp3",
+    },
+    {
+      id: 5,
       name: "שלומי",
       photo: "./imgs/SHLOMI.jpg",
       // No text message for שלומי
       video: "./video/SHLOMI.mov",
+      poster: "./imgs/SHLOMI2.jpg",
       // No audio for שלומי
     },
     {
-      id: 5,
+      id: 6,
       name: "פסו",
       photo: "./imgs/PESSO.jpg",
       message:
@@ -55,13 +65,7 @@ const FriendsWishes = ({
       quote: "״גם בתקופות הכי קשות אצעק את שמכם ברחובות״",
       // No audio or video for פסו
     },
-    {
-      id: 6,
-      name: "נהוראי",
-      photo: "./imgs/NEORAY.jpg",
-      message: "״טקסט לדוגמא״",
-      quote: "״טקסט לדוגמא״",
-    },
+
     {
       id: 7,
       name: "ברררררררר",
