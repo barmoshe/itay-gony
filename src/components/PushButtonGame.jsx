@@ -31,7 +31,7 @@ const PushButtonGame = () => {
     const x = Math.max(Math.floor(Math.random() * maxWidth), padding);
     const y = Math.max(Math.floor(Math.random() * maxHeight), padding);
     //make sure its not on the prompt
-    if (x > 100 && x < 180 && y > 100 && y < 180  ) {
+    if (x > 100 && x < 180 && y > 100 && y < 180) {
       return getRandomPosition();
     }
 
@@ -44,14 +44,21 @@ const PushButtonGame = () => {
     setPressCount(newPressCount);
 
     // Update prompt based on press count
-    const prompts = ["נוווווווו", "מדוברררר", "רמאיייייייייי", "דשקרן"];
+    const prompts = [
+      "נוווווווו",
+      "מדוברררר",
+      "רמאיייייייייי",
+      "דשקרן",
+      "ששששלללוום",
+      "דשקרןןן",
+    ];
     setPrompt(prompts[newPressCount - 1] || "Great job!");
 
     // Update button position
     setButtonStyle(getRandomPosition());
 
     // Check if the game has ended
-    if (newPressCount >= 4) {
+    if (newPressCount >= prompts.length) {
       setGameEnded(true);
     }
   };
@@ -87,11 +94,12 @@ const PushButtonGame = () => {
               src="./video/CHICKEN.mp4"
               poster="./imgs/burger.png"
               playsInline
-              
-            />{!isPlaying &&
-            <button className="play-button" onClick={handleVideoPlay}>
-              נגן
-            </button>}
+            />
+            {!isPlaying && (
+              <button className="play-button" onClick={handleVideoPlay}>
+                נגן
+              </button>
+            )}
           </div>
         </div>
       )}
