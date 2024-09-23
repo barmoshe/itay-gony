@@ -815,7 +815,7 @@ audio {
 }
 
 .custom-video-player.playing .video-element {
-  filter: brightness(0.7); /* Dimmed when playing */
+  filter: brightness(0.9); /* Dimmed when playing */
 }
 
 /* Black Overlay */
@@ -825,7 +825,7 @@ audio {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.2); /* Updated opacity */
+  background-color: rgba(0, 0, 0, 0.1); /* Updated opacity */
   transition: opacity 0.5s ease;
   pointer-events: none; /* Allow clicks to pass through */
 }
@@ -835,7 +835,7 @@ audio {
 }
 
 .video-overlay.visible {
-  opacity: 0.5;
+  opacity: 0.1;
 }
 
 /* SVG Circular Progress Bar */
@@ -952,5 +952,336 @@ audio {
   .play-pause-button-video svg {
     width: 35px;
     height: 35px;
+  }
+}
+
+/* CSS Variables */
+:root {
+  --primary-color: #ffd700;
+  --secondary-color: #000000;
+  --background-color: #efdeb1;
+  --text-color: #333333;
+  --accent-color: #e5c100;
+  --dim-background: rgba(0, 0, 0, 0.7);
+  --font-primary: "Alef", sans-serif;
+  --font-secondary: "Amatic SC", cursive;
+  --font-tertiary: "Inter", sans-serif;
+  --font-quaternary: "Roboto", sans-serif;
+  --font-quinary: "Lobster", cursive;
+}
+
+/* Global Resets */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Game Container */
+.game-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--background-color);
+  font-family: var(--font-primary);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: background-color 1s ease;
+}
+
+/* Dimming Effect */
+.game-container.dimmed::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--dim-background);
+  z-index: 1;
+  transition: opacity 1s ease;
+}
+
+.prompt,
+.end-animation {
+  position: relative;
+  z-index: 2; /* Ensure content is above the dimming overlay */
+}
+
+/* Prompt Text */
+.prompt {
+  font-size: 2.5rem;
+  color: var(--text-color);
+  font-family: "Georgia, 'Times New Roman', Times, serif";
+  text-shadow: none;
+
+  margin-bottom: 20px;
+}
+
+/* Game Button */
+.game-button {
+  position: absolute;
+  padding: 15px 30px;
+  font-size: 1.5rem;
+  color: var(--secondary-color);
+  background-color: var(--primary-color);
+  font-family: var(--font-tertiary);
+  cursor: pointer;
+  border: 2px solid var(--secondary-color);
+  border-radius: 8px;
+  transition: all 0.5s ease;
+  text-shadow: 1px 1px var(--secondary-color);
+  outline: none;
+}
+
+/* Hover Effect for Button */
+.game-button:hover {
+  background-color: var(--accent-color);
+  transform: scale(1.1);
+}
+
+/* Progress Text */
+.progress {
+  font-size: 1.8rem;
+  color: var(--secondary-color);
+  font-family: var(--font-quaternary);
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* End Animation Container */
+.end-animation {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  animation: fadeIn 2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Congratulations Message */
+.congrats-message {
+  font-size: 2rem;
+  font-family: var(--font-quinary);
+  color: var(--accent-color);
+  text-shadow: 2px 2px var(--secondary-color);
+  animation: fadeInUp 1s ease-out;
+}
+
+/* Confetti Container */
+.confetti {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 10;
+}
+
+/* Individual Confetti Pieces */
+.confetti-piece {
+  position: absolute;
+  width: 10px;
+  height: 20px;
+  background-color: var(--primary-color);
+  opacity: 0.8;
+  animation: fall linear infinite;
+}
+
+/* Alternate Colors for Confetti */
+.confetti-piece:nth-child(odd) {
+  background-color: var(--accent-color);
+}
+.confetti-piece:nth-child(even) {
+  background-color: var(--secondary-color);
+}
+
+/* Confetti Animation */
+@keyframes fall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+  }
+}
+
+/* Position and Animation Duration for Confetti Pieces */
+.confetti-piece {
+  left: calc(var(--i) * 10%);
+  animation-duration: calc(2.5s + var(--i) * 0.3s);
+}
+.confetti-piece:nth-child(n) {
+  --i: 1;
+}
+.confetti-piece:nth-child(2n) {
+  --i: 2;
+}
+.confetti-piece:nth-child(3n) {
+  --i: 3;
+}
+.confetti-piece:nth-child(4n) {
+  --i: 4;
+}
+.confetti-piece:nth-child(5n) {
+  --i: 5;
+}
+.confetti-piece:nth-child(6n) {
+  --i: 6;
+}
+.confetti-piece:nth-child(7n) {
+  --i: 7;
+}
+.confetti-piece:nth-child(8n) {
+  --i: 8;
+}
+.confetti-piece:nth-child(9n) {
+  --i: 9;
+}
+.confetti-piece:nth-child(10n) {
+  --i: 10;
+}
+
+/* Keyframes for Fade In */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Keyframes for Slide Up Animation */
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Keyframes for Fade In Up Effect */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Video Container */
+.video-container {
+  position: relative;
+  width: 300px;
+  height: 550px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
+}
+
+/* Celebration Video */
+.celebration-video {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+/* Custom Play Button */
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 3;
+  outline: none;
+  transition: background-color 0.3s ease;
+}
+
+.play-button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Responsive Styles */
+
+/* Adjustments for Tablets */
+@media (max-width: 768px) {
+  .game-button {
+    font-size: 1.2rem;
+    padding: 10px 20px;
+  }
+
+  .prompt {
+    font-size: 2rem;
+  }
+
+  .progress {
+    font-size: 1.5rem;
+  }
+
+  .congrats-message {
+    font-size: 1.8rem;
+  }
+
+  .video-container {
+    width: 250px;
+    height: 400px;
+  }
+}
+
+/* Adjustments for Mobile Devices */
+@media (max-width: 480px) {
+  .game-button {
+    font-size: 1rem;
+    padding: 8px 16px;
+  }
+
+  .prompt {
+    font-size: 1.8rem;
+  }
+
+  .progress {
+    font-size: 1.2rem;
+  }
+
+  .congrats-message {
+    font-size: 1.5rem;
+  }
+
+  .video-container {
+    width: 300px;
+    height: 650px;
+  }
+
+  .play-button {
+    font-size: 1.5rem;
+    padding: 8px;
   }
 }

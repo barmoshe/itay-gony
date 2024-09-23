@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Cover from "./components/Cover";
 import Gallery from "./components/Gallery";
 import FriendsWishes from "./components/FriendsWishes";
+import PushButtonGame from "./components/PushButtonGame";
 import "./App.css";
 
 function App() {
@@ -42,7 +43,15 @@ function App() {
       />
       <br />
       <br />
-      <div className="temp" />
+      <PushButtonGame/>
+      <div className="all-friends">
+        <h4>ברכה כללית מכל החברים</h4>
+        <p className="all-friends-message">
+          כל החברים מאחלים לכם כל טוב בעולם ובעתיד, ומקווים שתמצאו את האושר
+          האמיתי ביחד!
+        </p>
+        <img src="./imgs/ALL.jpg" alt="ברכה כללית מכל החברים" />
+      </div>
     </div>
   );
 }

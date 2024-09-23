@@ -1,6 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
-import VideoNotePlayer from "./VideoNotePlayer";
+import React, { useState, useRef , useEffect } from "react";
 import AudioPlayer from "./AudioPlayer";
+import PushButtonGame from "./PushButtonGame";
+
 
 const FriendsWishes = ({
   theme = "blackYellow",
@@ -13,22 +14,21 @@ const FriendsWishes = ({
   const wishes = [
     {
       id: 1,
+      name: "אופיר",
+      photo: "./imgs/OFIR.jpg",
+      quote: "״תודה רברררר״",
+      audio: "./audio/BEITAR.mp3",
+      // No video for אופיר
+    },
+    {
+      id: 2,
       name: "אפיק",
       photo: "./imgs/AFIK.jpg",
       // No text message for אפיק
       quote: "״המשטרה לא תעזור הלב שלי תמיד יהיה צהוב שחור״",
-      video: "./video/video1.mp4",
+      message: "אהובים שלי המון מזל טוב לרגל האירוסים דרך חדשה נפתחת בפניכם מתרגש ומאחל לכם המון אושר שמחה ואהבה אינסופית בדרך המשותפת שלכם. שתמשיכו לבנות יחד קשר חזק, מלא בהבנה, תמיכה וחברות אמיתית. אוהב מכל הלב💛"
       // No text for אפיק
     },
-    {
-      id: 2,
-      name: "אופיר",
-      photo: "./imgs/OFIR.jpg",
-      quote: "״תודה רברררר״",
-      message: "״טקסט לדוגמא״",
-      // No video for אופיר
-    },
-
     {
       id: 3,
       name: "שקד",
@@ -40,15 +40,6 @@ const FriendsWishes = ({
     },
     {
       id: 4,
-      name: "פסו",
-      photo: "./imgs/PESSO.jpg",
-      message:
-        "דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא  דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא",
-      quote: "״גם בתקופות הכי קשות אצעק את שמכם ברחובות״",
-      // No audio or video for פסו
-    },
-    {
-      id: 5,
       name: "שלומי",
       photo: "./imgs/SHLOMI.jpg",
       // No text message for שלומי
@@ -56,7 +47,15 @@ const FriendsWishes = ({
       video: "./video/CHICKEN.MOV",
       // No audio for שלומי
     },
-
+    {
+      id: 5,
+      name: "פסו",
+      photo: "./imgs/PESSO.jpg",
+      message:
+        "דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא  דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא דוגמא",
+      quote: "״גם בתקופות הכי קשות אצעק את שמכם ברחובות״",
+      // No audio or video for פסו
+    },
     {
       id: 6,
       name: "נהוראי",
@@ -90,14 +89,7 @@ const FriendsWishes = ({
           isFriendPlaying={isFriendPlaying}
         />
       ))}
-      <div className="all-friends">
-        <h4>ברכה כללית מכל החברים</h4>
-        <p className="all-friends-message">
-          כל החברים מאחלים לכם כל טוב בעולם ובעתיד, ומקווים שתמצאו את האושר
-          האמיתי ביחד!
-        </p>
-        <img src="./imgs/ALL.jpg" alt="ברכה כללית מכל החברים" />
-      </div>
+      
     </div>
   );
 };
@@ -156,11 +148,7 @@ const FriendMessage = ({
               />
             )}
             {friend.video && (
-              <CustomVideoPlayer
-                src={friend.video}
-                theme={theme}
-                poster={friend.poster}
-              />
+              <CustomVideoPlayer src={friend.video} theme={theme} poster={friend.poster} />
             )}
             <p className="friend-quote">{friend.quote}</p>
           </>
@@ -173,7 +161,10 @@ const FriendMessage = ({
   );
 };
 
-const CustomVideoPlayer = ({ src, poster, theme }) => {
+
+
+
+const CustomVideoPlayer = ({ src,poster,theme, setFriendPlaying, isFriendPlaying }) => {
   const videoRef = useRef(null);
   const containerRef = useRef(null); // Ref for the container
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
@@ -282,7 +273,9 @@ const CustomVideoPlayer = ({ src, poster, theme }) => {
 
       {/* Black Overlay */}
       <div
-        className={`video-overlay ${isVideoPlaying ? "fade-out" : "visible"}`}
+        className={`video-overlay ${
+          isVideoPlaying ? "fade-out" : "visible"
+        }`}
       ></div>
 
       {/* SVG Circular Progress Bar */}
@@ -290,30 +283,30 @@ const CustomVideoPlayer = ({ src, poster, theme }) => {
         className="progress-ring"
         viewBox={`0 0 ${circleRadius * 2 + 10} ${circleRadius * 2 + 10}`}
       >
-        <defs>
-          <linearGradient id="gradient-progress" x1="1" y1="0" x2="0" y2="1">
-            <stop
-              offset="0%"
-              stopColor={
-                theme === "green"
-                  ? "#7CD441" // Lighter green
-                  : theme === "pinkPurple"
-                  ? "purple" // Purple for pinkPurple theme
-                  : "#FFD700" // Default to blackYellow's primary color
-              }
-            />
-            <stop
-              offset="100%"
-              stopColor={
-                theme === "green"
-                  ? "#5A9F30" // Darker green
-                  : theme === "pinkPurple"
-                  ? "pink" // Pink for pinkPurple theme
-                  : "#FFA500" // Default to blackYellow's secondary color
-              }
-            />
-          </linearGradient>
-        </defs>
+       <defs>
+  <linearGradient id="gradient-progress" x1="1" y1="0" x2="0" y2="1">
+    <stop
+      offset="0%"
+      stopColor={
+        theme === "green"
+          ? "#7CD441" // Lighter green
+          : theme === "pinkPurple"
+          ? "purple" // Purple for pinkPurple theme
+          : "#FFD700" // Default to blackYellow's primary color
+      }
+    />
+    <stop
+      offset="100%"
+      stopColor={
+        theme === "green"
+          ? "#5A9F30" // Darker green
+          : theme === "pinkPurple"
+          ? "pink" // Pink for pinkPurple theme
+          : "#FFA500" // Default to blackYellow's secondary color
+      }
+    />
+  </linearGradient>
+</defs>
 
         <circle
           className="progress-ring__circle"
@@ -325,9 +318,7 @@ const CustomVideoPlayer = ({ src, poster, theme }) => {
           cy={circleRadius + 5}
           style={{
             strokeDasharray: `${2 * Math.PI * circleRadius}`,
-            strokeDashoffset: `${
-              2 * Math.PI * circleRadius * (1 - progress / 100)
-            }`,
+            strokeDashoffset: `${2 * Math.PI * circleRadius * (1 - progress / 100)}`,
             transition: "stroke-dashoffset 0.5s linear",
           }}
         />
@@ -356,7 +347,7 @@ const CustomVideoPlayer = ({ src, poster, theme }) => {
           </svg>
         ) : (
           // Play Icon (Elegant Triangle)
-          <span>הפעל</span>
+         <span>הפעל</span>
         )}
       </button>
     </div>
