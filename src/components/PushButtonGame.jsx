@@ -117,7 +117,7 @@ const PushButtonGame = () => {
             style={buttonStyle}
             onClick={handleClick}
           >
-            תלחצו
+         PUSH   
           </button>
         </>
       ) : (
