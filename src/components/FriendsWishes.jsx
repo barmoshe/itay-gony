@@ -1,7 +1,6 @@
-import React, { useState, useRef , useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import AudioPlayer from "./AudioPlayer";
 import PushButtonGame from "./PushButtonGame";
-
 
 const FriendsWishes = ({
   theme = "blackYellow",
@@ -16,8 +15,10 @@ const FriendsWishes = ({
       id: 1,
       name: "אופיר",
       photo: "./imgs/OFIR.jpg",
-message: "לאיתי וגוני היקרים! שיהיה לכם המון מזל טוב לכבוד האירוסין! אני עדיין זוכר את הימים הראשונים שבהם סיפרת לי איתי שהכרת מישהי בתואר ושהפעם זה מרגיש לך אחר, מיוחד ואמיתי וכשדיברת על זה די התרגשת ממש והיה לך חיוך מרוח על הפנים. כאחד שמכיר אותך  15 שנה ועבר איתך לא מעט חוויות בחיים, אני יודע ואני בטוח שזה מה שתמיד חיפשת. זוגיות ואהבה שמבטאת קשר טוב וחזק שאפשר לקרוא לו בית. לא שמוריד חלילה מהחשיבות של דברים אחרים כמו עבודה, כסף, תחביבים וכאלה אבל זוגיות אצלך זה אחרת - תמיד היית בנאדם משפחתי, בנאדם שזוגיות זה חלק גדול ממה שאתה מבטא וחלק גדול מהמהות שלך כבנאדם, ואין שום ספק שהזוגיות המדהימה שיש ביניכם זה בדיוק מה שרצית ומה שחיפשת כל חייך, ושגוני היא האישה המושלמת עבורך. מההתחלה היה נראה שהזוגיות ביניכם מאוד טובה והיה ביניכם קליק כזה והיה די ברור שזה ילך ויתקדם למשהו רציני ומיוחד מאוד. אתם משלימים אחד את השניה ונראה שיש לכם גם מטרות משותפות לא רק לעתיד הקרוב, אלא גם לעתיד הרחוק ביחד. גוני, מההתחלה השתלבת כאחת מהחבר'ה, תמיד נעים ונחמד לשבת ולדבר איתך ואת אחלה ידידה שבעולם. כייף לדעת שמישהי מדהימה כמוך תהיה אשתו של איתי. כייף לדעת שעכשיו נמשיך להגיע אליכם הביתה נגיע לבית של הזוג הנשוי הראשון בחבורה ומי יתן שהזוגיות שלכם תהווה דוגמה לכל שאר הפושפשים. מאחל לכם שנים רבות של אהבה ושל אושר, שתמשיך להיות לכם אחלה זוגיות שבעולם, שתמשיכו להכיר אחת את השניה גם עכשיו ולאורך שנים ארוכות, שתמשיכו לאהוב אחת את השניה ושיהיו לכם ילדים חמודים ויפים כמוכם. (מתנדב לעשות בייביסטר מתי שתצטרכו 😉).",
-      quote:"שתהיה לכם החתונה הכי מושלמת בעולם כמו שמגיע לכם אוהב אתכם מאוד אופיר  ❤️❤️❤️",      // No video for אופיר
+      message:
+        "לאיתי וגוני היקרים! שיהיה לכם המון מזל טוב לכבוד האירוסין! אני עדיין זוכר את הימים הראשונים שבהם סיפרת לי איתי שהכרת מישהי בתואר ושהפעם זה מרגיש לך אחר, מיוחד ואמיתי וכשדיברת על זה די התרגשת ממש והיה לך חיוך מרוח על הפנים. כאחד שמכיר אותך  15 שנה ועבר איתך לא מעט חוויות בחיים, אני יודע ואני בטוח שזה מה שתמיד חיפשת. זוגיות ואהבה שמבטאת קשר טוב וחזק שאפשר לקרוא לו בית. לא שמוריד חלילה מהחשיבות של דברים אחרים כמו עבודה, כסף, תחביבים וכאלה אבל זוגיות אצלך זה אחרת - תמיד היית בנאדם משפחתי, בנאדם שזוגיות זה חלק גדול ממה שאתה מבטא וחלק גדול מהמהות שלך כבנאדם, ואין שום ספק שהזוגיות המדהימה שיש ביניכם זה בדיוק מה שרצית ומה שחיפשת כל חייך, ושגוני היא האישה המושלמת עבורך. מההתחלה היה נראה שהזוגיות ביניכם מאוד טובה והיה ביניכם קליק כזה והיה די ברור שזה ילך ויתקדם למשהו רציני ומיוחד מאוד. אתם משלימים אחד את השניה ונראה שיש לכם גם מטרות משותפות לא רק לעתיד הקרוב, אלא גם לעתיד הרחוק ביחד. גוני, מההתחלה השתלבת כאחת מהחבר'ה, תמיד נעים ונחמד לשבת ולדבר איתך ואת אחלה ידידה שבעולם. כייף לדעת שמישהי מדהימה כמוך תהיה אשתו של איתי. כייף לדעת שעכשיו נמשיך להגיע אליכם הביתה נגיע לבית של הזוג הנשוי הראשון בחבורה ומי יתן שהזוגיות שלכם תהווה דוגמה לכל שאר הפושפשים. מאחל לכם שנים רבות של אהבה ושל אושר, שתמשיך להיות לכם אחלה זוגיות שבעולם, שתמשיכו להכיר אחת את השניה גם עכשיו ולאורך שנים ארוכות, שתמשיכו לאהוב אחת את השניה ושיהיו לכם ילדים חמודים ויפים כמוכם. (מתנדב לעשות בייביסטר מתי שתצטרכו 😉).",
+      quote:
+        "שתהיה לכם החתונה הכי מושלמת בעולם כמו שמגיע לכם אוהב אתכם מאוד אופיר  ❤️❤️❤️", // No video for אופיר
     },
     {
       id: 2,
@@ -25,14 +26,14 @@ message: "לאיתי וגוני היקרים! שיהיה לכם המון מזל 
       photo: "./imgs/AFIK.jpg",
       // No text message for אפיק
       quote: "״המשטרה לא תעזור הלב שלי תמיד יהיה צהוב שחור״",
-      message: "אהובים שלי המון מזל טוב לרגל האירוסים דרך חדשה נפתחת בפניכם מתרגש ומאחל לכם המון אושר שמחה ואהבה אינסופית בדרך המשותפת שלכם. שתמשיכו לבנות יחד קשר חזק, מלא בהבנה, תמיכה וחברות אמיתית. אוהב מכל הלב💛"
+      message:
+        "אהובים שלי המון מזל טוב לרגל האירוסים דרך חדשה נפתחת בפניכם מתרגש ומאחל לכם המון אושר שמחה ואהבה אינסופית בדרך המשותפת שלכם. שתמשיכו לבנות יחד קשר חזק, מלא בהבנה, תמיכה וחברות אמיתית. אוהב מכל הלב💛",
       // No text for אפיק
     },
     {
       id: 3,
       name: "שקד",
       photo: "./imgs/SHAKED.jpg",
-      quote: "״הוא פשוט קם הלך״ #אפיק",
       video: "./video/SHAKED.mov",
       poster: "./imgs/SHAKED2.jpg",
       // No audio or video for שקד
@@ -42,8 +43,7 @@ message: "לאיתי וגוני היקרים! שיהיה לכם המון מזל 
       name: "שלומי",
       photo: "./imgs/SHLOMI.jpg",
       // No text message for שלומי
-      quote: "״טקסט לדוגמא טקסט לדוגמא טקסט לדוגמא טקסט לדוגמא טקסט לדוגמא״",
-      video: "./video/CHICKEN.MOV",
+      video: "./video/SHLOMI.mov",
       // No audio for שלומי
     },
     {
@@ -88,7 +88,6 @@ message: "לאיתי וגוני היקרים! שיהיה לכם המון מזל 
           isFriendPlaying={isFriendPlaying}
         />
       ))}
-      
     </div>
   );
 };
@@ -147,7 +146,11 @@ const FriendMessage = ({
               />
             )}
             {friend.video && (
-              <CustomVideoPlayer src={friend.video} theme={theme} poster={friend.poster} />
+              <CustomVideoPlayer
+                src={friend.video}
+                theme={theme}
+                poster={friend.poster}
+              />
             )}
             <p className="friend-quote">{friend.quote}</p>
           </>
@@ -160,10 +163,13 @@ const FriendMessage = ({
   );
 };
 
-
-
-
-const CustomVideoPlayer = ({ src,poster,theme, setFriendPlaying, isFriendPlaying }) => {
+const CustomVideoPlayer = ({
+  src,
+  poster,
+  theme,
+  setFriendPlaying,
+  isFriendPlaying,
+}) => {
   const videoRef = useRef(null);
   const containerRef = useRef(null); // Ref for the container
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
@@ -272,9 +278,7 @@ const CustomVideoPlayer = ({ src,poster,theme, setFriendPlaying, isFriendPlaying
 
       {/* Black Overlay */}
       <div
-        className={`video-overlay ${
-          isVideoPlaying ? "fade-out" : "visible"
-        }`}
+        className={`video-overlay ${isVideoPlaying ? "fade-out" : "visible"}`}
       ></div>
 
       {/* SVG Circular Progress Bar */}
@@ -282,30 +286,30 @@ const CustomVideoPlayer = ({ src,poster,theme, setFriendPlaying, isFriendPlaying
         className="progress-ring"
         viewBox={`0 0 ${circleRadius * 2 + 10} ${circleRadius * 2 + 10}`}
       >
-       <defs>
-  <linearGradient id="gradient-progress" x1="1" y1="0" x2="0" y2="1">
-    <stop
-      offset="0%"
-      stopColor={
-        theme === "green"
-          ? "#7CD441" // Lighter green
-          : theme === "pinkPurple"
-          ? "purple" // Purple for pinkPurple theme
-          : "#FFD700" // Default to blackYellow's primary color
-      }
-    />
-    <stop
-      offset="100%"
-      stopColor={
-        theme === "green"
-          ? "#5A9F30" // Darker green
-          : theme === "pinkPurple"
-          ? "pink" // Pink for pinkPurple theme
-          : "#FFA500" // Default to blackYellow's secondary color
-      }
-    />
-  </linearGradient>
-</defs>
+        <defs>
+          <linearGradient id="gradient-progress" x1="1" y1="0" x2="0" y2="1">
+            <stop
+              offset="0%"
+              stopColor={
+                theme === "green"
+                  ? "#7CD441" // Lighter green
+                  : theme === "pinkPurple"
+                  ? "purple" // Purple for pinkPurple theme
+                  : "#FFD700" // Default to blackYellow's primary color
+              }
+            />
+            <stop
+              offset="100%"
+              stopColor={
+                theme === "green"
+                  ? "#5A9F30" // Darker green
+                  : theme === "pinkPurple"
+                  ? "pink" // Pink for pinkPurple theme
+                  : "#FFA500" // Default to blackYellow's secondary color
+              }
+            />
+          </linearGradient>
+        </defs>
 
         <circle
           className="progress-ring__circle"
@@ -317,7 +321,9 @@ const CustomVideoPlayer = ({ src,poster,theme, setFriendPlaying, isFriendPlaying
           cy={circleRadius + 5}
           style={{
             strokeDasharray: `${2 * Math.PI * circleRadius}`,
-            strokeDashoffset: `${2 * Math.PI * circleRadius * (1 - progress / 100)}`,
+            strokeDashoffset: `${
+              2 * Math.PI * circleRadius * (1 - progress / 100)
+            }`,
             transition: "stroke-dashoffset 0.5s linear",
           }}
         />
@@ -346,7 +352,7 @@ const CustomVideoPlayer = ({ src,poster,theme, setFriendPlaying, isFriendPlaying
           </svg>
         ) : (
           // Play Icon (Elegant Triangle)
-         <span>הפעל</span>
+          <span>הפעל</span>
         )}
       </button>
     </div>
