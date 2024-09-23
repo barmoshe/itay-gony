@@ -270,7 +270,10 @@ const CustomVideoPlayer = ({
         ref={videoRef}
         src={src}
         onClick={(e) => e.stopPropagation()} // Prevent click bubbling to container
-        onPlay={handleVideoPlay}
+        onPlay={(e) => {
+          e.stopPropagation();
+          handleVideoPlay(e);
+        }}
         onPause={handleVideoPause}
         onTimeUpdate={handleTimeUpdate}
         onEnded={handleVideoEnded}
@@ -278,6 +281,7 @@ const CustomVideoPlayer = ({
         poster={poster}
         playsInline // Prevent fullscreen on iOS
         webkit-playsinline="true" // Additional attribute for older iOS versions
+        muted={false} // Allow sound, but make sure it's not autoplaying with sound
       />
 
       {/* Black Overlay */}
